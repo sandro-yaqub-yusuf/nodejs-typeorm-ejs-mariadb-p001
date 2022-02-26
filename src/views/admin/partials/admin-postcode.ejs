@@ -1,0 +1,27 @@
+<!-- Script specific search POSTCODE -->
+<script>
+$(function() {
+  document.getElementById("adopterPostcode").addEventListener("blur", (e) => {
+    let cep = document.getElementById("adopterPostcode").value;
+    
+    if (cep.length > 0) {
+      const options = { method: "GET", mode: "cors", caches: "default" };
+
+      cep = cep.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
+
+      if (cep.length === 8) {
+        fetch(`https://viacep.com.br/ws/${cep}/json/`, options).then((response) => {
+          response.json().then(data => {
+            if (data.logradouro !== undefined) {
+              document.getElementById("adopterAddress").value = data.logradouro;
+              document.getElementById("adopterDistrict").value = data.bairro;
+              document.getElementById("adopterCity").value = data.localidade;
+              document.getElementById("adopterState").value = data.uf;
+            }
+          });
+        });
+      }
+    }
+  });
+});
+</script>

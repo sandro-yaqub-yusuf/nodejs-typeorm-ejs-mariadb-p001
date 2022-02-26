@@ -1,0 +1,10 @@
+<div class="row">
+  <%- html5_input((userTypeData ? userTypeData.name : ''), 'name', 'text', 'userTypeName', 'Tipo de Usuário', 'Digite o nome do Tipo de Usuário...', readOnly, 'col-sm-12') %>
+</div>
+<% if (readOnly) { %>
+  <div class="row">
+    <%- html5_label(showStatusLabel(userTypeData.deletedAt), 'status', 'Situação', 'col-sm-4') %>
+    <%- html5_input(userTypeData.createdAt.toLocaleString("pt-BR"), 'createdAt', 'text', 'userTypeCreatedAt', 'Data de Cadastro', '', true, 'col-sm-4') %>
+    <%- html5_input(userTypeData.updatedAt.toLocaleString("pt-BR"), 'updatedAt', 'text', 'userTypeUpdatedAt', 'Data de Alteração', '', true, 'col-sm-4') %>
+  </div>
+<% } %>

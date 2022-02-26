@@ -1,0 +1,81 @@
+<%- include('../partials/admin-header.ejs') %>
+
+<body class="hold-transition dark-mode login-page">
+<div class="login-box">
+  <div class="card card-outline card-primary">
+    <div class="card-header text-center">
+      <a href="/" class="h1"><%-getParams(sessionUser.parameters, 'ADMIN-LOGO-NAME-HTML5')%></a>
+    </div>
+    <div class="card-body">
+      <p class="login-box-msg">Faça seu LOGIN</p>
+      <% if (sessionFlash) { %>
+        <% if (typeof sessionFlash.message === 'object') { %>
+          <% sessionFlash.message.forEach(error => { %>
+            <p class="alert alert-<%=sessionFlash.type%>"><%=error.msg%></p>
+          <% }); %>
+        <% } else { %>
+          <p class="alert alert-<%=sessionFlash.type%>"><%=sessionFlash.message%></p>
+        <% } %>
+      <% } %>
+      <form id="userLogin" action="/admin/login" method="POST">
+        <div class="input-group mb-3">
+          <input type="text" name="login" class="form-control" id="userLogin" placeholder="Digite o Login...">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-user"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" name="password" class="form-control" id="userPassword" placeholder="Digite a Senha...">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary btn-block">LOGAR</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/admin-validation.ejs') %>
+
+<!-- Script specific for this page -->
+<script>
+$(function() {
+  $('#userLogin').validate({
+    lang: 'pt-BR',
+    rules: {
+      login: {
+        required: true,
+        minlength: 5,
+        maxlength: 30
+      },
+      password: {
+        required: true,
+        minlength: 6,
+        maxlength: 30
+      }
+    },
+    errorElement: 'span',
+    errorPlacement: function (error, element) {
+      error.addClass('invalid-feedback');
+      element.closest('.input-group').append(error);
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass('is-invalid');
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).removeClass('is-invalid');
+    }
+  });
+});
+</script>
+</body>
+</html>

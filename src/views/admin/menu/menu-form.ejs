@@ -1,0 +1,18 @@
+<div class="row">
+  <%- html5_input((menuData ? menuData.name : ''), 'name', 'text', 'menuName', 'Menu', 'Digite o nome do Menu...', readOnly, 'col-sm-12') %>
+</div>
+<div class="row">
+  <%- html5_input((menuData ? menuData.url : ''), 'url', 'text', 'menuUrl', 'Link da Página', 'Digite o link (URL) da Página...', readOnly, 'col-sm-10') %>
+  <%- html5_input((menuData ? menuData.orderShow : '0'), 'orderShow', 'number', 'menuOrderShow', 'Ordem Exibição', '', readOnly, 'col-sm-2') %>
+</div>
+<div class="row">
+  <%- html5_checkbox((menuData ? (menuData.openAnotherTab > 0 ? 'checked' : '0') : '0'), 'openAnotherTab', 'menuOpenAnotherTab', 'Abrir em outra aba', readOnly, 'col-sm-4') %>
+  <%- html5_checkbox((menuData ? (menuData.siteEnable > 0 ? 'checked' : '0') : '0'), 'siteEnable', 'menuSiteEnable', 'Exibir no Site', readOnly, 'col-sm-4') %>
+</div>
+<% if (readOnly) { %>
+  <div class="row">
+    <%- html5_label(showStatusLabel(menuData.deletedAt), 'status', 'Situação', 'col-sm-4') %>
+    <%- html5_input(menuData.createdAt.toLocaleString("pt-BR"), 'createdAt', 'text', 'menuCreatedAt', 'Data de Cadastro', '', true, 'col-sm-4') %>
+    <%- html5_input(menuData.updatedAt.toLocaleString("pt-BR"), 'updatedAt', 'text', 'menuUpdatedAt', 'Data de Alteração', '', true, 'col-sm-4') %>
+  </div>
+<% } %>

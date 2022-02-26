@@ -1,0 +1,55 @@
+<div class="row">
+  <% if (readOnly) { %>
+    <%- html5_input((userData.userType ? userData.userType.name : 'Sem Tipo de Usuário...'), 'userTypeName', 'text', 'userUserTypeName', 'Tipo de Usuário', '', true, 'col-sm-12') %>
+  <% } else { %>
+    <%- html5_dropdown(userTypeList, (userData ? userData.userTypeId : ''), 0, 'userTypeId', 'userUserTypeId', 'Tipo de Usuário', 'Selecione um Tipo de Usuário...', false, 'col-sm-12') %>
+  <% } %>
+</div>
+<div class="row">
+  <%- html5_input((userData ? userData.name : ''), 'name', 'text', 'userName', 'Nome', 'Digite o Nome...', readOnly, 'col-sm-12') %>
+</div>
+<div class="row">
+  <%- html5_input((userData ? userData.login : ''), 'login', 'text', 'userLogin', 'Login', 'Digite o Login...', readOnly, 'col-sm-6') %>
+  <%- html5_input((userData ? userData.email : ''), 'email', 'email', 'userEmail', 'E-mail', 'Digite o E-mail...', readOnly, 'col-sm-6') %>
+</div>
+<% if (enterPWD) { %>
+  <div class="row">
+    <%- html5_input((userData ? userData.password : ''), 'password', 'password', 'userPassword', 'Senha', 'Digite a Senha...', readOnly, 'col-sm-6') %>
+    <%- html5_input((userData ? userData.passwordConfirm : ''), 'passwordConfirm', 'password', 'userPasswordConfirm', 'Confirmação da Senha', 'Digite a confirmação da Senha...', readOnly, 'col-sm-6') %>
+  </div>
+<% } %>
+<div class="row mb-3">
+  <div class="col-sm-12">
+    <div class="custom-control custom-checkbox">
+      <input type="checkbox" name="terms" class="custom-control-input" id="userTerms" value="1" <%=(!enterPWD ? 'checked' : '')%> <%=(readOnly ? 'disabled' : '')%>>
+      <label class="custom-control-label" for="userTerms">Concordo com os <a href="#">termos de segurança</a></label>
+    </div>
+  </div>
+</div>
+<% if (readOnly) { %>
+  <div class="row">
+    <%- html5_label(showStatusLabel(userData.deletedAt), 'status', 'Situação', 'col-sm-4') %>
+    <%- html5_input(userData.createdAt.toLocaleString("pt-BR"), 'createdAt', 'text', 'userCreatedAt', 'Data de Cadastro', '', true, 'col-sm-4') %>
+    <%- html5_input(userData.updatedAt.toLocaleString("pt-BR"), 'updatedAt', 'text', 'userUpdatedAt', 'Data de Alteração', '', true, 'col-sm-4') %>
+  </div>
+<% } %>
+<div class="row">
+  <div class="col-sm-12">
+    <% if (image === 'create' || image === 'edit') { %>
+      <div class="form-group">
+        <label for="color">Imagem para Upload</label>
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" name="customFile" id="customFile" <%=(readOnly ? 'disabled' : '')%>>
+          <label class="custom-file-label" for="customFile">Selecione uma imagem... Ela será salva com a resolução de 200px X 200px...</label>
+        </div>
+      </div>
+    <% } %>
+    <% if (image === 'edit' || image === 'show') { %>
+      <div class="form-group">
+        <label for="color">Imagem Atual</label><br/>
+        <div class="embed-responsive"><img src="<%=userData.imageUrl%>"/></div>
+        <input type="hidden" name="imageUrl" value="<%=(userData ? userData.imageUrl : '')%>">
+      </div>
+    <% } %>  
+  </div>
+</div>

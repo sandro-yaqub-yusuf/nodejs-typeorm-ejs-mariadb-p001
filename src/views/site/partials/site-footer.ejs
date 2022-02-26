@@ -1,0 +1,189 @@
+  <div id="footer-wrapper">
+    <footer id="footer" class="container">
+      <div class="row">
+        <% if (getParams(sessionUser.parameters, 'SITE-FOOTER-CONTACT') == 'YES') { %>
+          <div class="col-3 col-6-medium col-12-small">
+            <section>
+              <h2>Links Úteis</h2>
+              <% if (pageList.length > 0) { %>
+                <ul class="divided">
+                  <% pageList.forEach(item => { %>
+                    <li><a href="/pagina/<%=item.id%>" target=<%=(item.openAnotherTab > 0 ? "_blank" : "_self")%>><%=item.name%></a></li>
+                  <% }); %>                
+                </ul>
+              <% } %>
+            </section>
+            <% if (getParams(sessionUser.parameters, 'SITE-FOOTER-SOCIAL-MEDIA-SHOW') == 'YES') { %>
+              <section>
+                <h2>Redes Sociais</h2>
+                <ul class="icons">
+                  <% if (getParams(sessionUser.parameters, 'SITE-FOOTER-FACEBOOK-URL').length > 0) { %><li><a href="<%=getParams(sessionUser.parameters, 'SITE-FOOTER-FACEBOOK-URL')%>" target="_blank" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li><% } %>
+                  <% if (getParams(sessionUser.parameters, 'SITE-FOOTER-INSTAGRAM-URL').length > 0) { %><li><a href="<%=getParams(sessionUser.parameters, 'SITE-FOOTER-INSTAGRAM-URL')%>" target="_blank" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li><% } %>
+                  <% if (getParams(sessionUser.parameters, 'SITE-FOOTER-TWITTER-URL').length > 0) { %><li><a href="<%=getParams(sessionUser.parameters, 'SITE-FOOTER-TWITTER-URL')%>" target="_blank" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li><% } %>
+                  <% if (getParams(sessionUser.parameters, 'SITE-FOOTER-LINKEDIN-URL').length > 0) { %><li><a href="<%=getParams(sessionUser.parameters, 'SITE-FOOTER-LINKEDIN-URL')%>" target="_blank" class="icon brands alt fa-linkedin"><span class="label">Linkedin</span></a></li><% } %>
+                </ul>
+              </section>
+            <% } %>
+            <% if (getParams(sessionUser.parameters, 'SITE-FOOTER-WHATSAPP-SHOW') == 'YES') { %>
+              <section>
+                <h2>WhatsApp</h2>
+                <ul class="icons">
+                  <li><i class="icon brands alt fa-whatsapp"></i><span class="label" style="font-size: 18px;"> <%-getParams(sessionUser.parameters, 'SITE-FOOTER-WHATSAPP-NUMBER-HTML5')%></span></li>
+                </ul>
+              </section>
+            <% } %>
+          </div>
+          <div class="col-9 col-12-medium col-12-small">
+            <section>
+              <h2>FALE CONOSCO</h2>
+              <div class="form">
+                <div class="fields">
+                  <div class="field half">
+                    <input type="text" name="name" id="name" placeholder="Digite seu Nome completo..." />
+                  </div>
+                  <div class="field half" style="margin-top: 10px;">
+                    <input type="text" name="email" id="email" placeholder="Digite seu E-mail..." />
+                  </div>
+                  <div class="field" style="margin-top: 10px;">
+                    <textarea name="message" id="message" rows="5" placeholder="Digite sua mensagem..."></textarea>
+                  </div>
+                  <div class="field" style="margin-top: 10px;">
+                    <button id="sendEmail" class="button submit">ENVIAR</button>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        <% } else { %>
+          <div class="col-4 col-6-medium col-12-small">
+            <section>
+              <h2>Links Úteis</h2>
+              <% if (pageList.length > 0) { %>
+                <ul class="divided">
+                  <% pageList.forEach(item => { %>
+                    <li><a href="/pagina/<%=item.id%>" target=<%=(item.openAnotherTab > 0 ? "_blank" : "_self")%>><%=item.name%></a></li>
+                  <% }); %>                
+                </ul>
+              <% } %>
+            </section>
+          </div>
+          <div class="col-5 col-6-medium col-12-small">
+            <section>
+              <%-getParams(sessionUser.parameters, 'SITE-FOOTER-INFO-TITLE-HTML5')%>
+              <ul class="divided">
+                <% if (getParams(sessionUser.parameters, 'SITE-FOOTER-INFO-LINE1-HTML5').length > 0) { %><li><%-getParams(sessionUser.parameters, 'SITE-FOOTER-INFO-LINE1-HTML5')%></li><% } %>
+                <% if (getParams(sessionUser.parameters, 'SITE-FOOTER-INFO-LINE2-HTML5').length > 0) { %><li><%-getParams(sessionUser.parameters, 'SITE-FOOTER-INFO-LINE2-HTML5')%></li><% } %>
+                <% if (getParams(sessionUser.parameters, 'SITE-FOOTER-INFO-LINE3-HTML5').length > 0) { %><li><%-getParams(sessionUser.parameters, 'SITE-FOOTER-INFO-LINE3-HTML5')%></li><% } %>
+                <% if (getParams(sessionUser.parameters, 'SITE-FOOTER-INFO-LINE4-HTML5').length > 0) { %><li><%-getParams(sessionUser.parameters, 'SITE-FOOTER-INFO-LINE4-HTML5')%></li><% } %>
+              </ul>
+            </section>
+          </div>
+          <div class="col-3 col-6-medium col-12-small">
+            <% if (getParams(sessionUser.parameters, 'SITE-FOOTER-SOCIAL-MEDIA-SHOW') == 'YES') { %>
+              <section>
+                <h2>Redes Sociais</h2>
+                <ul class="icons">
+                  <% if (getParams(sessionUser.parameters, 'SITE-FOOTER-FACEBOOK-URL').length > 0) { %><li><a href="<%=getParams(sessionUser.parameters, 'SITE-FOOTER-FACEBOOK-URL')%>" target="_blank" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li><% } %>
+                  <% if (getParams(sessionUser.parameters, 'SITE-FOOTER-INSTAGRAM-URL').length > 0) { %><li><a href="<%=getParams(sessionUser.parameters, 'SITE-FOOTER-INSTAGRAM-URL')%>" target="_blank" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li><% } %>
+                  <% if (getParams(sessionUser.parameters, 'SITE-FOOTER-TWITTER-URL').length > 0) { %><li><a href="<%=getParams(sessionUser.parameters, 'SITE-FOOTER-TWITTER-URL')%>" target="_blank" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li><% } %>
+                  <% if (getParams(sessionUser.parameters, 'SITE-FOOTER-LINKEDIN-URL').length > 0) { %><li><a href="<%=getParams(sessionUser.parameters, 'SITE-FOOTER-LINKEDIN-URL')%>" target="_blank" class="icon brands alt fa-linkedin"><span class="label">Linkedin</span></a></li><% } %>
+                </ul>
+              </section>
+            <% } %>
+            <% if (getParams(sessionUser.parameters, 'SITE-FOOTER-WHATSAPP-SHOW') == 'YES') { %>
+              <section>
+                <h2>WhatsApp</h2>
+                <ul class="icons">
+                  <li><i class="icon brands alt fa-whatsapp"></i><span class="label" style="font-size: 18px;"> <%-getParams(sessionUser.parameters, 'SITE-FOOTER-WHATSAPP-NUMBER-HTML5')%></span></li>
+                </ul>
+              </section>
+            <% } %>
+          </div>
+        <% } %>
+        <div class="col-12">
+          <div id="copyright">
+            <ul class="menu">
+              <li>&copy; 2022 Todos os direitos reservados</li>
+              <li>Versão 1.0.0</li>
+              <li>Powered by <a href="https://kitab.com.br" target="_blank">KITAB Informática</a></li>
+              <li>Design by <a href="https://html5up.net" target="_blank">HTML5 UP</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="/site/zerofour/assets/js/jquery.min.js"></script>
+<script src="/site/zerofour/assets/js/jquery.dropotron.min.js"></script>
+<script src="/site/zerofour/assets/js/browser.min.js"></script>
+<script src="/site/zerofour/assets/js/breakpoints.min.js"></script>
+<script src="/site/zerofour/assets/js/util.js"></script>
+<script src="/site/zerofour/assets/js/main.js"></script>
+
+<!-- Script specific for this page -->
+<script>
+$(function() {
+  $("#sendEmail").click(function(e) {
+    e.preventDefault();
+
+    var name = $("#name").val().trim();
+    var email = $("#email").val().trim();
+    var message = $("#message").val().trim();
+
+    var testName = /[A-Za-z]{1}[A-Za-z]/;
+
+    if (!testName.test(name)) {
+      alert ("O Nome precisa ter mais que 2 caracteres !");
+
+      return;
+    }
+
+    if (!testName.test(message)) {
+      alert ("A Mensagem precisa ter mais que 2 caracteres !");
+
+      return;
+    }
+
+    var testEmail = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,6})?$/;
+
+    if (!testEmail.test(email)) {
+      alert ("O formato do Email é inválido !");
+
+      return;
+    }
+
+    if (name.length <= 0 || email.length <= 0 || message.length <= 0) {
+      alert('Preencha todos os dados para enviar o Email !'); 
+      
+      return;
+    }
+
+    $.ajax({
+      url: "/enviar-email/fale-conosco",
+      dataType:'json',
+      type: "post",
+      method: "post",
+      data: { name, email, message },
+      success: function(data, textStatus, xhr) {
+        if (xhr.status === 200) {
+          alert(data.message);
+
+          $("#name").val('');
+          $("#email").val('');
+          $("#message").val('');
+        } else {
+          alert('Não foi possível enviar o Email ! Por favor, tente mais tarde !');
+        }
+      },
+      error: function(response) {
+        alert('Não foi possível enviar o Email ! Por favor, tente mais tarde !');
+      }
+    });
+  });
+});
+</script>
+</body>
+</html>

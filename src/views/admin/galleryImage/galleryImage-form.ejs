@@ -1,0 +1,37 @@
+<div class="row">
+  <%- html5_input((galleryImageData ? galleryImageData.name : ''), 'name', 'text', 'galleryImageName', 'Nome da Imagem', 'Digite o nome da Imagem...', readOnly, 'col-sm-12') %>
+</div>
+<div class="row">
+  <%- html5_input((galleryImageData ? galleryImageData.imageWidth : ''), 'imageWidth', 'number', 'galleryImageImageWidth', 'Largura Final da Imagem (em pixel)', '', readOnly, 'col-sm-6') %>
+  <%- html5_input((galleryImageData ? galleryImageData.imageHeight : ''), 'imageHeight', 'number', 'galleryImageImageHeight', 'Altura Final da Imagem (em pixel)', '', readOnly, 'col-sm-6') %>
+</div>
+<% if (readOnly) { %>
+  <div class="row">
+    <%- html5_input((galleryImageData ? (process.env.SITE_URL + galleryImageData.imageUrl) : ''), 'imageUrl', 'text', 'galleryImageImageUrl', 'Link (URL)', '', readOnly, 'col-sm-12') %>
+  </div>
+  <div class="row">
+    <%- html5_label(showStatusLabel(galleryImageData.deletedAt), 'status', 'Situação', 'col-sm-4') %>
+    <%- html5_input(galleryImageData.createdAt.toLocaleString("pt-BR"), 'createdAt', 'text', 'galleryImageCreatedAt', 'Data de Cadastro', '', true, 'col-sm-4') %>
+    <%- html5_input(galleryImageData.updatedAt.toLocaleString("pt-BR"), 'updatedAt', 'text', 'galleryImageUpdatedAt', 'Data de Alteração', '', true, 'col-sm-4') %>
+  </div>
+<% } %>
+<div class="row">
+  <div class="col-sm-12">
+    <% if (image === 'create' || image === 'edit') { %>
+      <div class="form-group">
+        <label for="color">Imagem para Upload</label>
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" name="customFile" id="customFile" <%=(readOnly ? 'disabled' : '')%>>
+          <label class="custom-file-label" for="customFile">Selecione uma imagem...</label>
+        </div>
+      </div>
+    <% } %>
+    <% if (image === 'edit' || image === 'show') { %>
+      <div class="form-group">
+        <label for="color">Imagem Atual</label><br/>
+        <div class="embed-responsive"><img src="<%=galleryImageData.imageUrl%>"/></div>
+        <input type="hidden" name="imageUrl" value="<%=(galleryImageData ? galleryImageData.imageUrl : '')%>">
+      </div>
+    <% } %>  
+  </div>
+</div>

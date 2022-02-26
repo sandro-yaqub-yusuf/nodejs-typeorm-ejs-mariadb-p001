@@ -1,0 +1,163 @@
+<%
+//--------------------------------------------------------------- FUNÇÔES GERAIS --------------------------------------------------------------//
+
+html5_checkbox = function(data, field, nameId, nameLabel, disabled, classDiv) {
+    let html5 = '';
+
+    html5 += `<div class="${classDiv}">`;
+    html5 += `<div class="form-group">`;
+    html5 += `<div class="custom-control custom-checkbox">`;
+    html5 += `<input type="checkbox" name="${field}" value="1" id="${nameId}" class="custom-control-input"` + (data == '0' ? `` : ` checked`) + (disabled ? ` disabled>` : `>`);
+    html5 += `<label for="${nameId}" class="custom-control-label">${nameLabel}</label>`;
+    html5 += `</div>`;
+    html5 += `</div>`;
+    html5 += `</div>`;
+
+    return html5;
+}
+
+html5_datePicker = function(data, field, nameId, nameLabel, disabled, classDiv) {
+    let html5 = '';
+
+    html5 += `<div class="${classDiv}">`;
+    html5 += `<div class="form-group">`;
+    html5 += `<label for="${field}">${nameLabel}</label>`;
+    html5 += `<div class="input-group date" id="orderDatePicker" data-target-input="nearest">`;
+    html5 += `<input type="text" name="${field}" value="${data}" id="${nameId}" data-target="#orderDatePicker" class="form-control datetimepicker-input"` + (disabled ? ` disabled>` : `>`);
+    html5 += `<div class="input-group-append" data-target="#orderDatePicker" data-toggle="datetimepicker"><div class="input-group-text"><i class="fa fa-calendar"></i></div></div>`;
+    html5 += `</div>`;
+    html5 += `</div>`;
+    html5 += `</div>`;
+
+    return html5;
+}
+
+html5_dropdown = function(dataList, data, showOption, field, nameId, nameLabel, optionEmptyName, disabled, classDiv) {
+    let html5 = '';
+
+    html5 += `<div class="${classDiv}">`;
+    html5 += `<div class="form-group">`;
+    html5 += `<label for="${field}">${nameLabel}</label>`;
+    html5 += `<select name="${field}" id="${nameId}" class="custom-select rounded-0"` + (disabled ? ` disabled>` : `>`);
+    html5 += `<option value="">${optionEmptyName}</option>`;
+
+    if (dataList) {
+        dataList.forEach(item => {
+            if (data) {
+                if (showOption == 0) html5 += `<option value="${item.id}"` + (data == item.id ? ` selected>` : `>`) + `${item.name}</option>`;
+                if (showOption == 1) html5 += `<option value="${item.id}"` + (data == item.id ? ` selected>` : `>`) + `${item.name} - ${item.userTypeName}</option>`;
+            }
+            else {
+                if (showOption == 0) html5 += `<option value="${item.id}">${item.name}</option>`;
+                if (showOption == 1) html5 += `<option value="${item.id}">${item.name} - ${item.userTypeName}</option>`;
+            }
+        });
+    }
+
+    html5 += `</select>`;
+    html5 += `</div>`;
+    html5 += `</div>`;
+
+    return html5;
+}
+
+html5_input = function(data, field, type, nameId, nameLabel, placeHolder, disabled, classDiv) {
+    let html5 = '';
+
+    html5 += `<div class="${classDiv}">`;
+    html5 += `<div class="form-group">`;
+    html5 += `<label for="${field}">${nameLabel}</label>`;
+    html5 += `<input type="${type}" name="${field}" value="${data}" id="${nameId}" placeholder="${placeHolder}" class="form-control"` + (disabled ? ` disabled>` : `>`);
+    html5 += `</div>`;
+    html5 += `</div>`;
+
+    return html5;
+}
+
+html5_label = function(data, nameFor, nameLabel, classDiv) {
+    let html5 = '';
+
+    html5 += `<div class="${classDiv}">`;
+    html5 += `<div class="form-group">`;
+    html5 += `<label for="${nameFor}">${nameLabel}&nbsp;&nbsp;</label>`;
+    html5 += `<div class="form-control">${data}</div>`;
+    html5 += `</div>`;
+    html5 += `</div>`;
+
+    return html5;
+}
+
+html5_select2 = function(dataList, showOption, field, nameId, nameLabel, optionEmptyName, disabled, classDiv) {
+    let html5 = '';
+
+    html5 += `<div class="${classDiv}">`;
+    html5 += `<div class="form-group">`;
+    html5 += `<label for="${field}">${nameLabel}</label>`;
+    html5 += `<select name="${field}" id="${nameId}" class="custom-select select2" style="width: 100%;"` + (disabled ? ` disabled>` : `>`);
+    html5 += `<option value="">${optionEmptyName}</option>`;
+
+    if (dataList) {
+        dataList.forEach(item => {
+            if (showOption == 0) html5 += `<option value="${item.id}">${item.name}</option>`;
+        });
+    }
+
+    html5 += `</select>`;
+    html5 += `</div>`;
+    html5 += `</div>`;
+
+    return html5;
+}
+
+html5_textarea = function(data, field, nameId, nameLabel, rows, disabled, classDiv) {
+    let html5 = '';
+
+    html5 += `<div class="${classDiv}">`;
+    html5 += `<div class="form-group">`;
+    html5 += `<label for="${field}">${nameLabel}</label>`;
+    html5 += `<textarea name="${field}" id="${nameId}" rows="${rows}" style="width: 100%;"` + (disabled ? ` disabled` : ``) + `>${data}</textarea>`;
+    html5 += `</div>`;
+    html5 += `</div>`;
+
+    return html5;
+}
+
+html5_summerNote = function(data, field, nameId, classDiv) {
+    let html5 = '';
+
+    html5 += `<div class="${classDiv}">`;
+    html5 += `<div class="form-group">`;
+    html5 += `<textarea name="${field}" id="${nameId}">${data}</textarea>`;
+    html5 += `</div>`;
+    html5 += `</div>`;
+
+    return html5;
+}
+
+currencyToBR = function(value) {
+    const newValue = parseFloat(value);
+   
+    return newValue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+}
+
+showStatusBadge = function(dateDeleted) {
+    if (dateDeleted) return '<span class="badge badge-danger">EXCLUÍDO</span>';
+    else return '<span class="badge badge-success">ATIVO</span>';
+}
+
+showStatusLabel = function(dateDeleted) {
+    if (dateDeleted) return 'EXCLUÍDO';
+    else return 'ATIVO';
+}
+
+showYesNoLabel = function(value) {
+    if (value == 0) return 'NÃO';
+    else return 'SIM';
+}
+
+//--------------------------------------------------------------- FUNÇÔES DO SISTEMA --------------------------------------------------------------//
+
+getParams = function(data, key) {
+    return data.find(a => a.attribute == key).value;
+}
+%>

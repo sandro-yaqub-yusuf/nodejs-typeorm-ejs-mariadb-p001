@@ -1,0 +1,18 @@
+<div class="row">
+  <%- html5_input((pageData ? pageData.name : ''), 'name', 'text', 'pageName', 'Página', 'Digite o nome da Página...', readOnly, 'col-sm-10') %>
+  <%- html5_input((pageData ? pageData.orderShow : '0'), 'orderShow', 'number', 'pageOrderShow', 'Ordem Exibição', '', readOnly, 'col-sm-2') %>
+</div>
+<div class="row">
+  <%- html5_checkbox((pageData ? (pageData.openAnotherTab > 0 ? 'checked' : '0') : '0'), 'openAnotherTab', 'pageOpenAnotherTab', 'Abrir em outra aba', readOnly, 'col-sm-4') %>
+  <%- html5_checkbox((pageData ? (pageData.siteEnable > 0 ? 'checked' : '0') : '0'), 'siteEnable', 'pageSiteEnable', 'Exibir no Site', readOnly, 'col-sm-4') %>
+</div>
+<% if (readOnly) { %>
+  <div class="row">
+    <%- html5_label(showStatusLabel(pageData.deletedAt), 'status', 'Situação', 'col-sm-4') %>
+    <%- html5_input(pageData.createdAt.toLocaleString("pt-BR"), 'createdAt', 'text', 'pageCreatedAt', 'Data de Cadastro', '', true, 'col-sm-4') %>
+    <%- html5_input(pageData.updatedAt.toLocaleString("pt-BR"), 'updatedAt', 'text', 'pageUpdatedAt', 'Data de Alteração', '', true, 'col-sm-4') %>
+  </div>
+<% } %>
+<div class="row mt-4">
+  <%- html5_summerNote((pageData ? pageData.content : ''), 'content', 'pageContent', 'col-sm-12') %>
+</div>

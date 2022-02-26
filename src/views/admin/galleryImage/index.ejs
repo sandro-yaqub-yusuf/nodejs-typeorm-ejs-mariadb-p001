@@ -1,0 +1,101 @@
+<%- include('../partials/admin-header.ejs') %>
+<%- include('../partials/admin-body.ejs', { menu: 3, subMenu: 1 }) %>
+
+<div class="content-wrapper">
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Lista de Imagens</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="/admin">Painel de Controle</a></li>
+            <li class="breadcrumb-item active">Galeria de Imagens</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <% if (sessionFlash) { %>
+          <div class="col-md-12">
+            <p class="alert alert-<%=sessionFlash.type%>"><%=sessionFlash.message%></p>
+          </div>
+        <% } %>
+        <% if (sessionUser.userTypeId === 1) { %>
+          <div class="col-md-12">
+            <p><a class="btn btn-info" href="/admin/galeria-imagem/novo">Nova Imagem</a></p>
+          </div>
+        <% } %>
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-body">
+              <table id="galleryImages" class="table table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th width="50px">ID</th>
+                    <th>Nome</th>
+                    <th>Data Cadastro</th>
+                    <th>Situação</th>
+                    <th width="90px">Ações</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% if (galleryImageList.length > 0) { %>
+                    <% galleryImageList.forEach(item => { %>
+                      <tr>
+                        <td width="50px"><%=item.id%></td>
+                        <td><%=item.name%></td>
+                        <td class="text-center"><%=item.createdAt.toLocaleString("pt-BR")%></td>
+                        <td class="text-center"><%-showStatusBadge(item.deletedAt)%></td>
+                        <td class="text-center" width="90px">
+                          <a class="btn-sm btn-warning" href="/admin/galeria-imagem/consultar/<%=item.id%>"><span class="fa fa-search"></span></a>
+                          <% if (!item.deletedAt && sessionUser.userTypeId === 1) { %>
+                            <a class="btn-sm btn-info" href="/admin/galeria-imagem/editar/<%=item.id%>"><span class="fa fa-pencil-alt"></span></a>
+                            <a class="btn-sm btn-danger" href="/admin/galeria-imagem/excluir/<%=item.id%>"><span class="fa fa-trash"></span></a>
+                          <% } else { %>
+                            <a class="btn-sm btn-info" href="#" style="pointer-events: none;"><span class="fa fa-pencil-alt"></span></a>
+                            <a class="btn-sm btn-danger" href="#" style="pointer-events: none;"><span class="fa fa-trash"></span></a>
+                          <% } %>
+                        </td>
+                      </tr>
+                    <% }); %>
+                  <% } else { %>
+                    <tr>
+                      <h4>Não há Imagens disponíveis no cadastro...</h4>
+                    </tr>
+                  <% } %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<%- include('../partials/admin-footer.ejs') %>
+<%- include('../partials/admin-dataTables.ejs') %>
+
+<!-- Script specific for this page -->
+<script>
+  $(function () {
+    $('#galleryImages').DataTable({
+      language: { url: '/admin/plugins/datatables/i18n/pt_br.json' },
+      "order": [[ 1, "asc" ]],
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<%- include('partials/site-header.ejs', { bannerShow: false }) %>
+
+<div id="main-wrapper">
+  <div class="wrapper feature1">
+    <div class="inner">
+      <section id="page" class="container box style2">
+        <div class="row">
+          <div class="col-12 col-12-medium">
+            <div id="content">
+              <article>
+                <header class="first major" style="text-align: center;">
+                  <h2><%=pageData.name%></h2>
+                </header>
+                <div id="pageContent"><%-pageData.content%></div>
+              </article>                    
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/site-footer.ejs') %>

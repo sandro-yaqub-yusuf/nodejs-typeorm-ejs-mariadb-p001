@@ -1,0 +1,6 @@
+<div class="row">
+  <%- html5_input((parameterData ? parameterData.attribute : ''), 'attribute', 'text', 'parameterAttribute', 'Nome do Parâmetro', 'Digite o nome do Parâmetro...', true, 'col-sm-12') %>
+</div>
+<div class="row">
+  <%- html5_textarea((parameterData ? parameterData.value : ''), 'value', 'parameterValue', 'Valor do Parâmetro', 5, readOnly, 'col-sm-12') %>
+</div>

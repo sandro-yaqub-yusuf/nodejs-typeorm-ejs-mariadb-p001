@@ -1,0 +1,58 @@
+<%- include('partials/site-header.ejs', { bannerShow: true }) %>
+
+<div id="main-wrapper">
+  <div class="wrapper style1">
+    <div class="inner">
+      <section id="homePage" class="container box feature1">
+        <div class="row">
+          <div class="col-12">
+            <header class="first major"><%-getParams(sessionUser.parameters, "SITE-CONTENT-TITLE-TEXT-HTML5")%></header>
+          </div>
+          <div class="col-4 col-12-medium">
+            <section>
+              <a href="#" class="image featured"><img src="site/zerofour/images/pic01.jpg" alt="Image 1"/></a>
+              <header class="second icon solid fa-user">
+                <h3>Here's a Heading</h3>
+                <p>And a subtitle</p>
+              </header>
+            </section>
+          </div>
+          <div class="col-4 col-12-medium">
+            <section>
+              <a href="#" class="image featured"><img src="site/zerofour/images/pic02.jpg" alt="Image 2"/></a>
+              <header class="second icon solid fa-cog">
+                <h3>Also a Heading</h3>
+                <p>And another subtitle</p>
+              </header>
+            </section>
+          </div>
+          <div class="col-4 col-12-medium">
+            <section>
+              <a href="#" class="image featured"><img src="site/zerofour/images/pic03.jpg" alt="Image 3"/></a>
+              <header class="second icon solid fa-chart-bar">
+                <h3>Another Heading</h3>
+                <p>And yes, a subtitle</p>
+              </header>
+            </section>
+          </div>
+          <div class="col-12">
+            <p>Phasellus quam turpis, feugiat sit amet ornare in, hendrerit in lectus. Praesent semper
+            bibendum ipsum, et tristique augue fringilla eu. Vivamus id risus vel dolor auctor euismod
+            quis eget mi. Etiam eu ante risus. Aliquam erat volutpat. Aliquam luctus mattis lectus sit
+            amet pulvinar. Nam nec turpis.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <% if (getParams(sessionUser.parameters, 'SITE-PROMO-SHOW') == 'YES') { %>
+    <div id="promo-wrapper" style=<%-getParams(sessionUser.parameters, "SITE-PROMO-WRAPPER-IMAGE-CSS3")%>>
+      <section id="promo">
+        <%-getParams(sessionUser.parameters, "SITE-PROMO-TEXT-HTML5")%>
+        <a href="<%=getParams(sessionUser.parameters, "SITE-PROMO-BUTTON-URL")%>" class="button"><%-getParams(sessionUser.parameters, "SITE-PROMO-BUTTON-NAME-HTML5")%></a>
+      </section>
+    </div>
+  <% } %>
+</div>
+
+<%- include('partials/site-footer.ejs') %>

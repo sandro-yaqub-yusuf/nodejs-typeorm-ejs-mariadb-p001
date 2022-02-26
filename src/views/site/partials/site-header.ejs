@@ -1,0 +1,56 @@
+<%- include('../../helpers/utils.ejs') %>
+<!DOCTYPE HTML>
+<!--
+  ZeroFour by HTML5 UP
+  html5up.net | @ajlkn
+  Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html lang="pt-BR">
+<head>
+  <title><%=getParams(sessionUser.parameters, 'SITE-TITLE')%></title>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <meta name="description" content="<%=getParams(sessionUser.parameters, 'SITE-DESCRIPTION')%>" />
+  <meta name="litmsProfileName" content="homepage-guest-frontend" />
+  <meta property="og:site_name" content="KITAB INFORMÁTICA LTDA - ME" />
+  <meta property="og:title" content="<%=getParams(sessionUser.parameters, 'SITE-TITLE')%>" />
+  <meta property="og:description" content="<%=getParams(sessionUser.parameters, 'SITE-DESCRIPTION')%>" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="<%=process.env.SITE_URL%>" />
+  <meta property="og:image" content="<%=process.env.SITE_URL%>/images/admin/favicon.png" />
+  <link rel="canonical" href="<%=process.env.SITE_URL%>" />
+  <link rel="stylesheet" href="/site/zerofour/assets/css/main.css" />
+  <link rel="stylesheet" href="/site/css/style.css" />
+  <link rel="icon" type="image/png" href="/images/admin/favicon.png" />
+</head>
+<body class="homepage is-preload">
+<div id="page-wrapper">
+  <div id="header-wrapper" style=<%-getParams(sessionUser.parameters, "SITE-HEADER-WRAPPER-IMAGE-CSS3")%>>
+    <div class="container">
+      <header id="header">
+        <div class="inner">
+          <a href="<%=process.env.SITE_URL%>" id="logo"><%-getParams(sessionUser.parameters, 'SITE-LOGO-NAME-HTML5')%></a>
+          <nav id="nav">
+            <ul>
+              <li class="current_page_item"><a href="<%=process.env.SITE_URL%>">Início</a></li>
+              <% if (menuList.length > 0) { %>
+                <% menuList.forEach(item => { %>
+                  <li><a href="<%=item.url%>" target=<%=(item.openAnotherTab > 0 ? "_blank" : "_self")%>><%=item.name%></a></li>
+                <% }); %>
+              <% } %>
+            </ul>
+          </nav>
+        </div>
+      </header>
+      <% if (bannerShow) { %>
+        <% if (getParams(sessionUser.parameters, 'SITE-HEADER-BANNER-SHOW') == 'YES') { %>
+          <div id="banner">
+            <%-getParams(sessionUser.parameters, 'SITE-HEADER-BANNER-TEXT-LINE1-HTML5')%>
+            <%-getParams(sessionUser.parameters, 'SITE-HEADER-BANNER-TEXT-LINE2-HTML5')%>
+            <a href="<%=getParams(sessionUser.parameters, 'SITE-HEADER-BANNER-BUTTON-URL')%>" class="button large icon solid fa-check-circle"><%-getParams(sessionUser.parameters, 'SITE-HEADER-BANNER-BUTTON-NAME-HTML5')%></a>
+          </div>
+        <% } %>
+      <% } %>
+    </div>
+  </div>

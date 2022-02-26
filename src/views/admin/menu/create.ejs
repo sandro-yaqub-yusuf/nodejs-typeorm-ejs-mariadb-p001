@@ -1,0 +1,80 @@
+<%- include('../partials/admin-header.ejs') %>
+<%- include('../partials/admin-body.ejs', { menu: 3, subMenu: 2 }) %>
+
+<div class="content-wrapper">
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Novo Menu</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="/admin">Painel de Controle</a></li>
+            <li class="breadcrumb-item"><a href="/admin/menu/listar">Menus</a></li>
+            <li class="breadcrumb-item active">Novo</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <% if (sessionFlash) { %>
+          <div class="col-md-12">
+            <% if (typeof sessionFlash.message === 'object') { %>
+              <% sessionFlash.message.forEach(error => { %>
+                <p class="alert alert-<%=sessionFlash.type%>"><%=error.msg%></p>
+              <% }); %>
+            <% } else { %>
+              <p class="alert alert-<%=sessionFlash.type%>"><%=sessionFlash.message%></p>
+            <% } %>
+          </div>
+        <% } %>
+        <div class="col-md-12">
+          <div class="card card-primary">
+            <form id="menuCreate" action="/admin/menu/novo" method="POST">
+              <div class="card-body">
+                <%- include('menu-form.ejs', { menuData, readOnly: false }) %>
+              </div>
+              <div class="card-footer">
+                <button type="submit" class="btn btn-primary">SALVAR</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<%- include('../partials/admin-footer.ejs') %>
+<%- include('../partials/admin-validation.ejs') %>
+
+<!-- Script specific for this page -->
+<script>
+$(function() {
+  $('#menuCreate').validate({
+    lang: 'pt-BR',
+    rules: {
+      name: { required: true, minlength: 2, maxlength: 25 },
+      url: { required: true, minlength: 1, maxlength: 255 },
+      orderShow: { required: true }
+    },
+    errorElement: 'span',
+    errorPlacement: function (error, element) {
+      error.addClass('invalid-feedback');
+      element.closest('.form-group').append(error);
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass('is-invalid');
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).removeClass('is-invalid');
+    }
+  });
+});
+</script>
+</body>
+</html>

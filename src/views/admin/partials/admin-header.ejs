@@ -1,0 +1,28 @@
+<%- include('../../helpers/utils.ejs') %>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <title><%=getParams(sessionUser.parameters, 'ADMIN-TITLE')%></title>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <meta name="description" content="<%=getParams(sessionUser.parameters, 'ADMIN-DESCRIPTION')%>" />
+  <meta name="litmsProfileName" content="homepage-guest-frontend" />
+  <meta property="og:site_name" content="KITAB INFORMÁTICA LTDA - ME" />
+  <meta property="og:title" content="<%=getParams(sessionUser.parameters, 'ADMIN-TITLE')%>" />
+  <meta property="og:description" content="<%=getParams(sessionUser.parameters, 'ADMIN-DESCRIPTION')%>" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="<%=process.env.ADMIN_URL%>" />
+  <meta property="og:image" content="<%=process.env.ADMIN_URL%>/images/admin/favicon.png" />
+  <link rel="canonical" href="<%=process.env.ADMIN_URL%>" />
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/admin/plugins/fontawesome-free/css/all.min.css" />
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="/admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css" />
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/admin/css/adminlte.min.css" />
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/images/admin/favicon.png" />
+</head>

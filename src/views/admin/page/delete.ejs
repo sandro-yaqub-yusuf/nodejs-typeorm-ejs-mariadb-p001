@@ -1,0 +1,44 @@
+<%- include('../partials/admin-header.ejs') %>
+<%- include('../partials/admin-body.ejs', { menu: 3, subMenu: 3 }) %>
+
+<div class="content-wrapper">
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Exclusão da Página</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="/admin">Painel de Controle</a></li>
+            <li class="breadcrumb-item"><a href="/admin/pagina/listar">Páginas</a></li>
+            <li class="breadcrumb-item active">Exclusão</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card card-primary">
+            <form id="pageDelete" action="/admin/pagina/excluir/<%=pageData.id%>" method="POST">
+              <div class="card-body">
+                <%- include('page-form.ejs', { pageData, image: 'show', readOnly: true }) %>
+              </div>
+              <div class="card-footer">
+                <button type="submit" class="btn btn-danger">EXCLUIR</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<%- include('page-script.ejs', { readOnly: true }) %>
+
+</body>
+</html>

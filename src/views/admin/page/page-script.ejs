@@ -1,0 +1,29 @@
+<%- include('../partials/admin-footer.ejs') %>
+
+<% if (readOnly) { %>
+  <%- include('../partials/admin-jquery.ejs') %>
+<% } else { %>}
+  <%- include('../partials/admin-validation.ejs') %>
+<% } %>}
+
+<!-- Summernote css -->
+<link rel="stylesheet" href="/admin/plugins/summernote/summernote-bs4.min.css">
+<!-- Summernote js -->
+<script src="/admin/plugins/summernote/summernote-bs4.min.js"></script>
+<script src="/admin/plugins/summernote/lang/summernote-pt-BR.min.js"></script>
+
+<!-- Script specific for SUMMERNOTE framework -->
+<script>
+$(function() {
+  const pageReadOnly = '<%=readOnly%>';
+
+  $('#pageContent').summernote({
+    lang: 'pt-BR',
+    placeholder: 'Digite o conteúdo da Página...',
+    height: 700
+  });
+
+  if (pageReadOnly == 'true') $('#pageContent').summernote('disable');
+  else $('#pageContent').summernote('enable');
+});
+</script>
