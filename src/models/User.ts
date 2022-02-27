@@ -47,6 +47,7 @@ export default class User {
         onDelete: 'RESTRICT',
         onUpdate: 'RESTRICT',
     })
+	
     @JoinColumn([{ name: 'user_type_id', referencedColumnName: 'id' }])
     userType: UserType;
 }

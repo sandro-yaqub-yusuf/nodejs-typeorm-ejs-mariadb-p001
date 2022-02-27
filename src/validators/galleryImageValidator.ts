@@ -2,8 +2,10 @@ import { checkSchema } from 'express-validator';
 
 export const store = checkSchema({
     name: {
+        trim: true,
+        escape: true,
         isLength: {
-            options: { min: 2, max: 200},
+            options: { min: 2, max: 200 },
             errorMessage: 'O nome da Imagem precisa ter pelo menos 2 caracteres e no máximo 200 caracteres !'
         }
     },
@@ -19,8 +21,10 @@ export const store = checkSchema({
 
 export const update = checkSchema({
     name: {
+        trim: true,
+        escape: true,
         isLength: {
-            options: { min: 2, max: 200},
+            options: { min: 2, max: 200 },
             errorMessage: 'O nome da Imagem precisa ter pelo menos 2 caracteres e no máximo 200 caracteres !'
         }
     },

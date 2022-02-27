@@ -1,5 +1,5 @@
 {
-  "name": "nodejs-typeorm-ejs-mariadb-p01",
+  "name": "nodejs-typeorm-ejs-mariadb-p001",
   "version": "1.0.0",
   "description": "Site desenvolvido em NODEJS com EJS e MariaDB",
   "main": "server.js",

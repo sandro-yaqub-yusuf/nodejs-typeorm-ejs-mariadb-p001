@@ -5,8 +5,8 @@ export const update = checkSchema({
         trim: true,
         escape: true,
         isLength:{
-            options: { min: 2, max: 50 }
-        },
-        errorMessage: 'O Tipo de Usuário precisa ter pelo menos 2 caracteres e no máximo 50 caracteres !'
+            options: { min: 2, max: 50 },
+            errorMessage: 'O nome do Tipo de Usuário precisa ter pelo menos 2 caracteres e no máximo 50 caracteres !'
+        }
     }
 });

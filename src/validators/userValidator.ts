@@ -10,9 +10,9 @@ export const store = checkSchema({
         trim: true,
         escape: true,
         isLength:{
-            options: { min: 2, max: 100 }
-        },
-        errorMessage: 'O Nome precisa ter pelo menos 2 caracteres e no máximo 100 caracteres !'
+            options: { min: 2, max: 100 },
+            errorMessage: 'O Nome precisa ter pelo menos 2 caracteres e no máximo 100 caracteres !'
+        }
     },
     email: {
         isEmail: true,
@@ -22,17 +22,19 @@ export const store = checkSchema({
         trim: true,
         escape: true,
         isLength: {
-            options: { min: 5, max: 30 }
-        },
-        errorMessage: 'O Login precisa ter pelo menos 5 caracteres e no máximo 30 caracteres !'
+            options: { min: 5, max: 30 },
+            errorMessage: 'O Login precisa ter pelo menos 5 caracteres e no máximo 30 caracteres !'
+        }
     },
     password: {
+        trim: true,
         isLength: {
-            options: { min: 6, max: 30 }
-        },
-        errorMessage: 'A Senha precisa ter pelo menos 6 caracteres e no máximo 30 caracteres !'
+            options: { min: 6, max: 30 },
+            errorMessage: 'A Senha precisa ter pelo menos 6 caracteres e no máximo 30 caracteres !'
+        }
     },
     passwordConfirm: {
+        trim: true,
         custom: {
             options: (value: string, { req }) => (value === req.body.password)
         },
@@ -42,13 +44,6 @@ export const store = checkSchema({
         in: 'body',
         isIn: { options: [[0, 1]] },
         errorMessage: 'O Termo precisar ser 0 ou 1 !'
-    },
-    imageUrl: {
-        optional: { options: { nullable: true, checkFalsy: true } },
-        isLength:{
-            options: { min: 5, max: 240 }
-        },
-        errorMessage: 'O nome do Arquivo (Imagem) precisa ter pelo menos 5 caracteres e no máximo 240 caracteres !'
     }
 });
 
@@ -62,9 +57,9 @@ export const update = checkSchema({
         trim: true,
         escape: true,
         isLength:{
-            options: { min: 2, max: 100 }
-        },
-        errorMessage: 'O Nome precisa ter pelo menos 2 caracteres e no máximo 100 caracteres !'
+            options: { min: 2, max: 100 },
+            errorMessage: 'O Nome precisa ter pelo menos 2 caracteres e no máximo 100 caracteres !'
+        }
     },
     email: {
         isEmail: true,
@@ -74,20 +69,13 @@ export const update = checkSchema({
         trim: true,
         escape: true,
         isLength: {
-            options: { min: 5, max: 30 }
-        },
-        errorMessage: 'O Login precisa ter pelo menos 5 caracteres e no máximo 30 caracteres !'
+            options: { min: 5, max: 30 },
+            errorMessage: 'O Login precisa ter pelo menos 5 caracteres e no máximo 30 caracteres !'
+        }
     },
     terms: {
         in: 'body',
         isIn: { options: [[0, 1]] },
         errorMessage: 'O Termo precisar ser 0 ou 1 !'
-    },
-    imageUrl: {
-        optional: { options: { nullable: true, checkFalsy: true } },
-        isLength:{
-            options: { min: 5, max: 240 }
-        },
-        errorMessage: 'O nome do Arquivo (Imagem) precisa ter pelo menos 5 caracteres e no máximo 240 caracteres !'
     }
 });
