@@ -26,9 +26,7 @@ export default class PageRepository extends Repository<Page> {
     public async findByIdWQB(id: number): Promise<Page | undefined> {
         const query = this.createQueryBuilder('pages');
 
-        query.withDeleted();
-
-        query.where('pages.id = :id', { id })
+        query.select().withDeleted().where('pages.id = :id', { id });
 
         const page = await query.getOne();
 

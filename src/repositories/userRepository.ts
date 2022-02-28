@@ -9,6 +9,7 @@ export default class UserRepository extends Repository<User> {
         query.select(['users.id', 'users.login', 'users.name', 'users.email', 'users.createdAt', 'users.updatedAt', 'users.deletedAt']);
 
         if (wrUserType) query.innerJoin('users.userType', 'userType').withDeleted().addSelect('userType.name');
+
         if (wDeleted) query.withDeleted();
 
         if (wRandom) query.orderBy('RAND()');
@@ -28,7 +29,7 @@ export default class UserRepository extends Repository<User> {
 
         if (wrUserType) query.innerJoin('users.userType', 'userType').withDeleted().addSelect('userType.name');
 
-        query.where('users.id = :id', { id })
+        query.where('users.id = :id', { id });
 
         const user = await query.getOne();
 

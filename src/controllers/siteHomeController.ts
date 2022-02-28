@@ -8,8 +8,8 @@ class SiteHomeController {
     public async index(req: Request, res: Response): Promise<void> {
         delete req.session.sessionFlash;
 
-        const menuList = await MenuService.getAll(1, true, 'orderShow');
-        const pageList = await PageService.getAll(1, true, 'orderShow');
+        const menuList = await MenuService.getAll(1, false, 'orderShow');
+        const pageList = await PageService.getAll(1, false, 'orderShow');
 
         if (!req.session.parameters) {
             ParameterService.getAll().then(parameterData => {
@@ -34,8 +34,8 @@ class SiteHomeController {
     public async page(req: Request, res: Response): Promise<void> {
         const { id } = req.params;
 
-        const menuList = await MenuService.getAll(1, true, 'orderShow');
-        const pageList = await PageService.getAll(1, true, 'orderShow');
+        const menuList = await MenuService.getAll(1, false, 'orderShow');
+        const pageList = await PageService.getAll(1, false, 'orderShow');
 
         PageService.getById(parseInt(id)).then(pageData => {
             if (pageData) {

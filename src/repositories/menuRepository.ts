@@ -26,9 +26,7 @@ export default class MenuRepository extends Repository<Menu> {
     public async findByIdWQB(id: number): Promise<Menu | undefined> {
         const query = this.createQueryBuilder('menus');
 
-        query.withDeleted();
-
-        query.where('menus.id = :id', { id })
+        query.select().withDeleted().where('menus.id = :id', { id });
 
         const menu = await query.getOne();
 

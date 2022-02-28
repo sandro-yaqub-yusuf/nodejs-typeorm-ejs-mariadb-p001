@@ -23,7 +23,7 @@ export default class userTypeRepository extends Repository<UserType> {
     public async findByIdWQB(id: number): Promise<UserType | undefined> {
         const query = this.createQueryBuilder('usersTypes');
 
-        query.select().withDeleted().where('usersTypes.id = :id', { id })
+        query.select().withDeleted().where('usersTypes.id = :id', { id });
 
         const userType = await query.getOne();
 

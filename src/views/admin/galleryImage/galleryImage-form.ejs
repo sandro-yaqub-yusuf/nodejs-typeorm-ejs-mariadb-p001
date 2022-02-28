@@ -7,7 +7,7 @@
 </div>
 <% if (readOnly) { %>
   <div class="row">
-    <%- html5_input((galleryImageData ? (process.env.SITE_URL + galleryImageData.imageUrl) : ''), 'imageUrl', 'text', 'galleryImageImageUrl', 'Link (URL)', '', readOnly, 'col-sm-12') %>
+    <%- html5_input((galleryImageData ? galleryImageData.imageUrl : ''), 'imageUrl', 'text', 'galleryImageImageUrl', 'Link (URL)', '', readOnly, 'col-sm-12') %>
   </div>
   <div class="row">
     <%- html5_label(showStatusLabel(galleryImageData.deletedAt), 'status', 'Situação', 'col-sm-4') %>

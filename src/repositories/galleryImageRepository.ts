@@ -23,7 +23,7 @@ export default class GalleryImageRepository extends Repository<GalleryImage> {
     public async findByIdWQB(id: number): Promise<GalleryImage | undefined> {
         const query = this.createQueryBuilder('galleryImages');
 
-        query.select().withDeleted().where('galleryImages.id = :id', { id })
+        query.select().withDeleted().where('galleryImages.id = :id', { id });
 
         const galleryImage = await query.getOne();
 
