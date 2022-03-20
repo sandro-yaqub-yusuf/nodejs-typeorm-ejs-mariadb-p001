@@ -1,24 +1,75 @@
-import { getCustomRepository } from 'typeorm';
+import { dataSource } from '../database';
 import UserType from '../models/UserType';
-import UserTypeRepository from '../repositories/userTypeRepository';
 
 interface IUserTypeInstance {
     id: number;
     name: string;
 }
 
+const userTypeRepository = dataSource.getRepository(UserType).extend({
+    async findAllWQB(wDeleted: boolean, wOrderColumn: string, wOrderType: string, wLimit: number, wRandom: boolean): Promise<UserType[]> {
+        const query = this.createQueryBuilder('usersTypes');
+
+        query.select();
+
+        if (wDeleted) query.withDeleted();
+
+        if (wRandom) query.orderBy('RAND()');
+        else query.orderBy(('usersTypes.' + wOrderColumn), (wOrderType == 'A' ? 'ASC' : 'DESC'));
+
+        if (wLimit > 0) query.take(wLimit);
+
+        const usersTypes = await query.getMany();
+
+        return usersTypes;
+    },
+    async findByIdWQB(id: number): Promise<UserType | null> {
+        const query = this.createQueryBuilder('usersTypes');
+
+        query.select().withDeleted().where('usersTypes.id = :id', { id });
+
+        const userType = await query.getOne();
+
+        return userType;
+    },
+    async saveWT(userType: UserType): Promise<UserType | null> {
+        const queryRunner = dataSource.createQueryRunner();
+        
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
+        
+        let ok = false;
+
+        try {
+            userType = await queryRunner.manager.save(userType);
+
+            await queryRunner.commitTransaction();
+
+            ok = true;
+        } 
+        catch (err) {
+            if (process.env.NODE_DEPLOY = 'DEV') console.log(err);
+
+            await queryRunner.rollbackTransaction();
+
+            ok = false;
+        } 
+        finally {
+            await queryRunner.release();
+        }
+        
+        return (ok ? userType : null);
+    }    
+});
+
 class UserTypeService {
     public async getAll(wDeleted: boolean = true, wOrderColumn: string = 'id', wOrderType: string = 'A', wLimit: number = 0, wRandom: boolean = false): Promise<UserType[]> {
-        const userTypeRepository = getCustomRepository(UserTypeRepository);
-
         const usersTypes = await userTypeRepository.findAllWQB(wDeleted, wOrderColumn, wOrderType, wLimit, wRandom);
 
         return usersTypes;
     }
 
-    public async getById(id: number): Promise<UserType | undefined> {
-        const userTypeRepository = getCustomRepository(UserTypeRepository);
-
+    public async getById(id: number): Promise<UserType | null> {
         const userType = await userTypeRepository.findByIdWQB(id);
 
         if (!userType) throw new Error('Tipo de Usuário não encontrado !');
@@ -26,10 +77,8 @@ class UserTypeService {
         return userType;
     }
 
-    public async update(userTypeData: IUserTypeInstance): Promise<UserType | unknown> {
-        const userTypeRepository = getCustomRepository(UserTypeRepository);
-
-        const userType = await userTypeRepository.findOne(userTypeData.id);
+    public async update(userTypeData: IUserTypeInstance): Promise<UserType | null> {
+        const userType = await userTypeRepository.findOneBy({ id: userTypeData.id });
 
         if (!userType) throw new Error('Tipo de Usuário não encontrado !');
         

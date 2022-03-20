@@ -23,7 +23,7 @@ class SiteHomeController {
                     {attribute: 'SITE-LOGO-NAME-HTML5', value: 'SITE - 500 ERROR'}
                 ];
 
-                res.render('site/500', { categoryList: [], menuList: [], pageList: [], sessionUser: req.session });
+                res.render('site/500', { menuList: [], pageList: [], sessionUser: req.session });
             });
         }
         else {

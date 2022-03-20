@@ -1,6 +1,5 @@
-import { getCustomRepository } from 'typeorm';
+import { dataSource } from '../database';
 import Parameter from '../models/Parameter';
-import ParameterRepository from '../repositories/parameterRepository';
 
 interface IParameterInstance {
     id: number;
@@ -8,39 +7,33 @@ interface IParameterInstance {
     value: string;
 }
 
+const parameterRepository = dataSource.getRepository(Parameter);
+
 class ParameterService {
     public async getAll(): Promise<Parameter[]> {
-        const parameterRepository = getCustomRepository(ParameterRepository);
-
         const parameters = await parameterRepository.find();
 
         return parameters;
     }
 
-    public async getById(id: number): Promise<Parameter | undefined> {
-        const parameterRepository = getCustomRepository(ParameterRepository);
-
-        const parameter = await parameterRepository.findOne(id);
+    public async getById(id: number): Promise<Parameter | null> {
+        const parameter = await parameterRepository.findOneBy({ id });
 
         if (!parameter) throw new Error('Parâmetro não encontrado !');
 
         return parameter;
     }
 
-    public async getByAttribute(attribute: string): Promise<Parameter | undefined> {
-        const parameterRepository = getCustomRepository(ParameterRepository);
-
-        const parameter = await parameterRepository.findOne(attribute);
+    public async getByAttribute(attribute: string): Promise<Parameter | null> {
+        const parameter = await parameterRepository.findOneBy({ attribute });
 
         if (!parameter) throw new Error('Parâmetro não encontrado !');
 
         return parameter;
     }
 
-    public async update(parameterData: IParameterInstance): Promise<Parameter | unknown> {
-        const parameterRepository = getCustomRepository(ParameterRepository);
-
-        const parameter = await parameterRepository.findOne(parameterData.id);
+    public async update(parameterData: IParameterInstance): Promise<Parameter | null> {
+        const parameter = await parameterRepository.findOneBy({ id: parameterData.id });
 
         if (!parameter) throw new Error('Parâmetro não encontrado !');
         

@@ -26,6 +26,8 @@ Projeto em NODEJS (site em HTML5, CSS3, Javascript e Typescript) com BD MariaDB 
    npm install -g ts-node
 5. Instalar a biblioteca TYPEORM, utilize o seguinte comando: 
    npm install -g typeorm
+6. Instalar a biblioteca NCU, utilize o seguinte comando: 
+   npm i -g npm-check-updates
 
 ----
 

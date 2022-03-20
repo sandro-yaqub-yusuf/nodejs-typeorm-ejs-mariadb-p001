@@ -1,17 +1,17 @@
-import { getCustomRepository } from 'typeorm';
+import { dataSource } from '../database';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import AuthRepository from '../repositories/authRepository';
+import User from '../models/User';
+
+const authRepository = dataSource.getRepository(User);
 
 class UserService {
     public async authenticateByLogin({ login, password }: { login: string; password: string; }): Promise<any> {
-        const authRepository = getCustomRepository(AuthRepository);
-
-        const user = await authRepository.findOne({ where: { login } });
+        const user = await authRepository.findOneBy({ login });
 
         if (!user) throw new Error('Usuário e/ou Senha inválidos !');
 
-        const isValidPassword = await bcrypt.compare(password, user.password);
+        const isValidPassword = bcrypt.compare(password, user.password);
 
         if (!isValidPassword) throw new Error('Usuário e/ou Senha inválidos !');
 
@@ -21,9 +21,7 @@ class UserService {
     }
 
     public async authenticateByEmail({ email, password }: { email: string; password: string; }): Promise<any> {
-        const authRepository = getCustomRepository(AuthRepository);
-
-        const user = await authRepository.findOne({ where: { email } });
+        const user = await authRepository.findOneBy({ email });
 
         if (!user) throw new Error('Usuário e/ou Senha inválidos !');
 

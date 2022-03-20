@@ -1,6 +1,5 @@
-import { getCustomRepository } from 'typeorm';
+import { dataSource } from '../database';
 import User from '../models/User';
-import UserRepository from '../repositories/userRepository';
 
 interface IUserInstance {
     id?: number;
@@ -14,18 +13,104 @@ interface IUserInstance {
     imageUrl?: string;
 }
 
+const userRepository = dataSource.getRepository(User).extend({
+    async findAllWQB(wrUserType: boolean, wDeleted: boolean, wOrderColumn: string, wOrderType: string, wLimit: number, wRandom: boolean): Promise<User[]> {
+        const query = this.createQueryBuilder('users');
+
+        query.select(['users.id', 'users.login', 'users.name', 'users.email', 'users.createdAt', 'users.updatedAt', 'users.deletedAt']);
+
+        if (wrUserType) query.innerJoin('users.userType', 'userType').withDeleted().addSelect('userType.name');
+
+        if (wDeleted) query.withDeleted();
+
+        if (wRandom) query.orderBy('RAND()');
+        else query.orderBy(('users.' + wOrderColumn), (wOrderType == 'A' ? 'ASC' : 'DESC'));
+
+        if (wLimit > 0) query.take(wLimit);
+
+        const users = await query.getMany();
+
+        return users;
+    },
+    async findByIdWQB(id: number, wrUserType: boolean = false): Promise<User | null> {
+        const query = this.createQueryBuilder('users');
+
+        query.select().withDeleted();
+
+        if (wrUserType) query.innerJoin('users.userType', 'userType').withDeleted().addSelect('userType.name');
+
+        query.where('users.id = :id', { id });
+
+        const user = await query.getOne();
+
+        return user;
+    },
+    async saveWT(user: User): Promise<User | null> {
+        const queryRunner = dataSource.createQueryRunner();
+        
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
+        
+        let ok = false;
+
+        try {
+            user = await queryRunner.manager.save(user);
+
+            await queryRunner.commitTransaction();
+
+            ok = true;
+        } 
+        catch (err) {
+            if (process.env.NODE_DEPLOY = 'DEV') console.log(err);
+
+            await queryRunner.rollbackTransaction();
+
+            ok = false;
+        } 
+        finally {
+            await queryRunner.release();
+        }
+        
+        return (ok ? user : null);
+    },
+    async softDeleteWT(id: number): Promise<boolean | null> {
+        const queryRunner = dataSource.createQueryRunner();
+        
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
+        
+        let ok = false;
+
+        try {
+            await queryRunner.manager.softDelete(User, { id });
+
+            await queryRunner.commitTransaction();
+
+            ok = true;
+        } 
+        catch (err) {
+            if (process.env.NODE_DEPLOY = 'DEV') console.log(err);
+
+            await queryRunner.rollbackTransaction();
+
+            ok = false;
+        } 
+        finally {
+            await queryRunner.release();
+        }
+        
+        return ok;
+    }
+});
+
 class UserService {
     public async getAll(wrUserType: boolean = false, wDeleted: boolean = true, wOrderColumn: string = 'id', wOrderType: string = 'A', wLimit: number = 0, wRandom: boolean = false): Promise<User[]> {
-        const userRepository = getCustomRepository(UserRepository);
-
         const users = await userRepository.findAllWQB(wrUserType, wDeleted, wOrderColumn, wOrderType, wLimit, wRandom);
 
         return users;
     }
 
-    public async getById(id: number, wrUserType: boolean = false): Promise<User> {
-        const userRepository = getCustomRepository(UserRepository);
-
+    public async getById(id: number, wrUserType: boolean = false): Promise<User | null> {
         const user = await userRepository.findByIdWQB(id, wrUserType);
 
         if (!user) throw new Error('Usuário não encontrado !');
@@ -33,16 +118,14 @@ class UserService {
         return user;
     }
 
-    public async store(userData: IUserInstance): Promise<User | unknown> {
-        const userRepository = getCustomRepository(UserRepository);
-
+    public async store(userData: IUserInstance): Promise<User | null> {
         if (userData.terms <= 0) throw new Error('O Cadastro não foi efetuado por não concordar com os termos de segurança !');
 
-        const userLoginExists = await userRepository.findOne({ where: { login: userData.login } });
+        const userLoginExists = await userRepository.findOneBy({ login: userData.login });
 
         if (userLoginExists) throw new Error('Login já cadastrado !');
 
-        const userEmailExists = await userRepository.findOne({ where: { email: userData.email } });
+        const userEmailExists = await userRepository.findOneBy({ email: userData.email });
 
         if (userEmailExists) throw new Error('E-mail já cadastrado !');
 
@@ -55,23 +138,21 @@ class UserService {
         return userStore;
     }
 
-    public async update(userData: IUserInstance): Promise<User | unknown> {
-        const userRepository = getCustomRepository(UserRepository);
-
+    public async update(userData: IUserInstance): Promise<User | null> {
         if (userData.terms <= 0) throw new Error('O Cadastro não foi efetuado por não concordar com os termos de segurança !');
 
-        const user = await userRepository.findOne(userData.id);
+        const user = await userRepository.findOneBy({ id: userData.id });
 
         if (!user) throw new Error('Usuário não encontrado !');
         
         if (user.login !== userData.login) {
-            const userLoginExists = await userRepository.findOne({ where: { login: userData.login } });
+            const userLoginExists = await userRepository.findOneBy({ login: userData.login });
 
             if (userLoginExists) throw new Error('Login já cadastrado !');
         }
 
         if (user.email !== userData.email) {
-            const userEmailExists = await userRepository.findOne({ where: { email: userData.email } });
+            const userEmailExists = await userRepository.findOneBy({ email: userData.email });
 
             if (userEmailExists) throw new Error('E-mail já cadastrado !');
         }
@@ -91,9 +172,7 @@ class UserService {
     }
 
     public async destroy(id: number): Promise<void> {
-        const userRepository = getCustomRepository(UserRepository);
-
-        const user = await userRepository.findOne(id);
+        const user = await userRepository.findOneBy({ id });
 
         if (!user) throw new Error('Usuário não encontrado !');
 
