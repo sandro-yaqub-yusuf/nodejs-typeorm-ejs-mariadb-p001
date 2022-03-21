@@ -11,28 +11,18 @@ const parameterRepository = dataSource.getRepository(Parameter);
 
 class ParameterService {
     public async getAll(): Promise<Parameter[]> {
-        const parameters = await parameterRepository.find();
-
-        return parameters;
+        return await parameterRepository.find();
     }
 
     public async getById(id: number): Promise<Parameter | null> {
-        const parameter = await parameterRepository.findOneBy({ id });
-
-        if (!parameter) throw new Error('Parâmetro não encontrado !');
-
-        return parameter;
+        return await parameterRepository.findOneBy({ id });
     }
 
     public async getByAttribute(attribute: string): Promise<Parameter | null> {
-        const parameter = await parameterRepository.findOneBy({ attribute });
-
-        if (!parameter) throw new Error('Parâmetro não encontrado !');
-
-        return parameter;
+        return await parameterRepository.findOneBy({ attribute });
     }
 
-    public async update(parameterData: IParameterInstance): Promise<Parameter | null> {
+    public async update(parameterData: IParameterInstance): Promise<Parameter> {
         const parameter = await parameterRepository.findOneBy({ id: parameterData.id });
 
         if (!parameter) throw new Error('Parâmetro não encontrado !');

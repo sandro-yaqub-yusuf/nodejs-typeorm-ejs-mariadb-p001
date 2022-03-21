@@ -19,18 +19,14 @@ const userTypeRepository = dataSource.getRepository(UserType).extend({
 
         if (wLimit > 0) query.take(wLimit);
 
-        const usersTypes = await query.getMany();
-
-        return usersTypes;
+        return await query.getMany();
     },
     async findByIdWQB(id: number): Promise<UserType | null> {
         const query = this.createQueryBuilder('usersTypes');
 
         query.select().withDeleted().where('usersTypes.id = :id', { id });
 
-        const userType = await query.getOne();
-
-        return userType;
+        return await query.getOne();
     },
     async saveWT(userType: UserType): Promise<UserType | null> {
         const queryRunner = dataSource.createQueryRunner();
@@ -64,20 +60,14 @@ const userTypeRepository = dataSource.getRepository(UserType).extend({
 
 class UserTypeService {
     public async getAll(wDeleted: boolean = true, wOrderColumn: string = 'id', wOrderType: string = 'A', wLimit: number = 0, wRandom: boolean = false): Promise<UserType[]> {
-        const usersTypes = await userTypeRepository.findAllWQB(wDeleted, wOrderColumn, wOrderType, wLimit, wRandom);
-
-        return usersTypes;
+        return await userTypeRepository.findAllWQB(wDeleted, wOrderColumn, wOrderType, wLimit, wRandom);
     }
 
     public async getById(id: number): Promise<UserType | null> {
-        const userType = await userTypeRepository.findByIdWQB(id);
-
-        if (!userType) throw new Error('Tipo de Usuário não encontrado !');
-
-        return userType;
+        return await userTypeRepository.findByIdWQB(id);
     }
 
-    public async update(userTypeData: IUserTypeInstance): Promise<UserType | null> {
+    public async update(userTypeData: IUserTypeInstance): Promise<UserType> {
         const userType = await userTypeRepository.findOneBy({ id: userTypeData.id });
 
         if (!userType) throw new Error('Tipo de Usuário não encontrado !');

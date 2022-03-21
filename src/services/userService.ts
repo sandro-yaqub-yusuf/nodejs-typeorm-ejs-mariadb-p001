@@ -28,9 +28,7 @@ const userRepository = dataSource.getRepository(User).extend({
 
         if (wLimit > 0) query.take(wLimit);
 
-        const users = await query.getMany();
-
-        return users;
+        return await query.getMany();
     },
     async findByIdWQB(id: number, wrUserType: boolean = false): Promise<User | null> {
         const query = this.createQueryBuilder('users');
@@ -41,9 +39,7 @@ const userRepository = dataSource.getRepository(User).extend({
 
         query.where('users.id = :id', { id });
 
-        const user = await query.getOne();
-
-        return user;
+        return await query.getOne();
     },
     async saveWT(user: User): Promise<User | null> {
         const queryRunner = dataSource.createQueryRunner();
@@ -105,20 +101,14 @@ const userRepository = dataSource.getRepository(User).extend({
 
 class UserService {
     public async getAll(wrUserType: boolean = false, wDeleted: boolean = true, wOrderColumn: string = 'id', wOrderType: string = 'A', wLimit: number = 0, wRandom: boolean = false): Promise<User[]> {
-        const users = await userRepository.findAllWQB(wrUserType, wDeleted, wOrderColumn, wOrderType, wLimit, wRandom);
-
-        return users;
+        return await userRepository.findAllWQB(wrUserType, wDeleted, wOrderColumn, wOrderType, wLimit, wRandom);
     }
 
     public async getById(id: number, wrUserType: boolean = false): Promise<User | null> {
-        const user = await userRepository.findByIdWQB(id, wrUserType);
-
-        if (!user) throw new Error('Usuário não encontrado !');
-
-        return user;
+        return await userRepository.findByIdWQB(id, wrUserType);
     }
 
-    public async store(userData: IUserInstance): Promise<User | null> {
+    public async store(userData: IUserInstance): Promise<User> {
         if (userData.terms <= 0) throw new Error('O Cadastro não foi efetuado por não concordar com os termos de segurança !');
 
         const userLoginExists = await userRepository.findOneBy({ login: userData.login });
@@ -138,7 +128,7 @@ class UserService {
         return userStore;
     }
 
-    public async update(userData: IUserInstance): Promise<User | null> {
+    public async update(userData: IUserInstance): Promise<User> {
         if (userData.terms <= 0) throw new Error('O Cadastro não foi efetuado por não concordar com os termos de segurança !');
 
         const user = await userRepository.findOneBy({ id: userData.id });

@@ -26,18 +26,14 @@ const pageRepository = dataSource.getRepository(Page).extend({
 
         if (wLimit > 0) query.take(wLimit);
 
-        const pages = await query.getMany();
-
-        return pages;
+        return await query.getMany();
     },
     async findByIdWQB(id: number): Promise<Page | null> {
         const query = this.createQueryBuilder('pages');
 
         query.select().withDeleted().where('pages.id = :id', { id });
 
-        const page = await query.getOne();
-
-        return page;
+        return await query.getOne();
     },
     async saveWT(page: Page): Promise<Page | null> {
         const queryRunner = dataSource.createQueryRunner();
@@ -99,20 +95,14 @@ const pageRepository = dataSource.getRepository(Page).extend({
 
 class PageService {
     public async getAll(siteEnable: number = 0, wDeleted: boolean = true, wOrderColumn: string = 'id', wOrderType: string = 'A', wLimit: number = 0, wRandom: boolean = false): Promise<Page[]> {
-        const pages = await pageRepository.findAllWQB(siteEnable, wDeleted, wOrderColumn, wOrderType, wLimit, wRandom);
-
-        return pages;
+        return await pageRepository.findAllWQB(siteEnable, wDeleted, wOrderColumn, wOrderType, wLimit, wRandom);
     }
 
     public async getById(id: number): Promise<Page | null> {
-        const page = await pageRepository.findByIdWQB(id);
-
-        if (!page) throw new Error('Página não encontrada !');
-
-        return page;
+        return await pageRepository.findByIdWQB(id);
     }
 
-    public async store(pageData: IPageInstance): Promise<Page | null> {
+    public async store(pageData: IPageInstance): Promise<Page> {
         const page = pageRepository.create(pageData);
 
         page.content = (pageData.content ? pageData.content : null);
@@ -126,7 +116,7 @@ class PageService {
         return pageStore;
     }
 
-    public async update(pageData: IPageInstance): Promise<Page | null> {
+    public async update(pageData: IPageInstance): Promise<Page> {
         const page = await pageRepository.findOneBy({ id: pageData.id });
 
         if (!page) throw new Error('Página não encontrada !');

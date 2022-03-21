@@ -26,18 +26,14 @@ const menuRepository = dataSource.getRepository(Menu).extend({
 
         if (wLimit > 0) query.take(wLimit);
 
-        const menus = await query.getMany();
-
-        return menus;
+        return await query.getMany();
     },
     async findByIdWQB(id: number): Promise<Menu | null> {
         const query = this.createQueryBuilder('menus');
 
         query.select().withDeleted().where('menus.id = :id', { id });
 
-        const menu = await query.getOne();
-
-        return menu;
+        return await query.getOne();
     },
     async saveWT(menu: Menu): Promise<Menu | null> {
         const queryRunner = dataSource.createQueryRunner();
@@ -99,20 +95,14 @@ const menuRepository = dataSource.getRepository(Menu).extend({
 
 class MenuService {
     public async getAll(siteEnable: number = 0, wDeleted: boolean = true, wOrderColumn: string = 'id', wOrderType: string = 'A', wLimit: number = 0, wRandom: boolean = false): Promise<Menu[]> {
-        const menus = await menuRepository.findAllWQB(siteEnable, wDeleted, wOrderColumn, wOrderType, wLimit, wRandom);
-
-        return menus;
+        return await menuRepository.findAllWQB(siteEnable, wDeleted, wOrderColumn, wOrderType, wLimit, wRandom);
     }
 
     public async getById(id: number): Promise<Menu | null> {
-        const menu = await menuRepository.findByIdWQB(id);
-
-        if (!menu) throw new Error('Menu não encontrado !');
-
-        return menu;
+        return await menuRepository.findByIdWQB(id);
     }
 
-    public async store(menuData: IMenuInstance): Promise<Menu | null> {
+    public async store(menuData: IMenuInstance): Promise<Menu> {
         const menu = menuRepository.create(menuData);
 
         menu.openAnotherTab = (menuData.openAnotherTab ? 1 : 0);
@@ -125,7 +115,7 @@ class MenuService {
         return menuStore;
     }
 
-    public async update(menuData: IMenuInstance): Promise<Menu | null> {
+    public async update(menuData: IMenuInstance): Promise<Menu> {
         const menu = await menuRepository.findOneBy({ id: menuData.id });
 
         if (!menu) throw new Error('Menu não encontrado !');

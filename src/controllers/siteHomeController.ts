@@ -41,7 +41,7 @@ class SiteHomeController {
             if (pageData) {
                 res.render('site/page', { pageData, menuList, pageList, sessionUser: req.session });
             } else {
-                res.redirect('/');
+                res.render('site/404', { menuList: [], pageList: [], sessionUser: req.session });
             }
         }).catch(() => {
             res.render('site/500', { menuList: [], pageList: [], sessionUser: req.session });
