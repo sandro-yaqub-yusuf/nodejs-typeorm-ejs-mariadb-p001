@@ -1,4 +1,4 @@
-import { dataSource } from '../database';
+import * as database from '../database';
 import User from '../models/User';
 
 interface IUserInstance {
@@ -13,7 +13,7 @@ interface IUserInstance {
     imageUrl?: string;
 }
 
-const userRepository = dataSource.getRepository(User).extend({
+const userRepository = database.dataSource.getRepository(User).extend({
     async findAllWQB(wrUserType: boolean, wDeleted: boolean, wOrderColumn: string, wOrderType: string, wLimit: number, wRandom: boolean): Promise<User[]> {
         const query = this.createQueryBuilder('users');
 
@@ -42,7 +42,7 @@ const userRepository = dataSource.getRepository(User).extend({
         return await query.getOne();
     },
     async saveWT(user: User): Promise<User | null> {
-        const queryRunner = dataSource.createQueryRunner();
+        const queryRunner = database.dataSource.createQueryRunner();
         
         await queryRunner.connect();
         await queryRunner.startTransaction();
@@ -70,7 +70,7 @@ const userRepository = dataSource.getRepository(User).extend({
         return (ok ? user : null);
     },
     async softDeleteWT(id: number): Promise<boolean | null> {
-        const queryRunner = dataSource.createQueryRunner();
+        const queryRunner = database.dataSource.createQueryRunner();
         
         await queryRunner.connect();
         await queryRunner.startTransaction();

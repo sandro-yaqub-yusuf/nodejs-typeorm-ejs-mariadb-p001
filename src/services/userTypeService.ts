@@ -1,4 +1,4 @@
-import { dataSource } from '../database';
+import * as database from '../database';
 import UserType from '../models/UserType';
 
 interface IUserTypeInstance {
@@ -6,7 +6,7 @@ interface IUserTypeInstance {
     name: string;
 }
 
-const userTypeRepository = dataSource.getRepository(UserType).extend({
+const userTypeRepository = database.dataSource.getRepository(UserType).extend({
     async findAllWQB(wDeleted: boolean, wOrderColumn: string, wOrderType: string, wLimit: number, wRandom: boolean): Promise<UserType[]> {
         const query = this.createQueryBuilder('usersTypes');
 
@@ -29,7 +29,7 @@ const userTypeRepository = dataSource.getRepository(UserType).extend({
         return await query.getOne();
     },
     async saveWT(userType: UserType): Promise<UserType | null> {
-        const queryRunner = dataSource.createQueryRunner();
+        const queryRunner = database.dataSource.createQueryRunner();
         
         await queryRunner.connect();
         await queryRunner.startTransaction();

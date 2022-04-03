@@ -1,11 +1,11 @@
-import { Request, Response } from 'express';
+import express from 'express';
 import HomeService from '../services/homeService';
 import MenuService from '../services/menuService';
 import PageService from '../services/pageService';
 import ParameterService from '../services/parameterService';
 
 class SiteHomeController {
-    public async index(req: Request, res: Response): Promise<void> {
+    public async index(req: express.Request, res: express.Response): Promise<void> {
         delete req.session.sessionFlash;
 
         const menuList = await MenuService.getAll(1, false, 'orderShow');
@@ -31,7 +31,7 @@ class SiteHomeController {
         }
     }
     
-    public async page(req: Request, res: Response): Promise<void> {
+    public async page(req: express.Request, res: express.Response): Promise<void> {
         const { id } = req.params;
 
         const menuList = await MenuService.getAll(1, false, 'orderShow');
@@ -48,7 +48,7 @@ class SiteHomeController {
         });
     }
 
-    public async sendEmailContact(req: Request, res: Response): Promise<void> {
+    public async sendEmailContact(req: express.Request, res: express.Response): Promise<void> {
         const contactData = req.body;
 
         HomeService.sendEmail(contactData).then(retorno => {

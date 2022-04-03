@@ -1,7 +1,7 @@
-import {MigrationInterface, QueryRunner} from 'typeorm';
+import * as typeorm from 'typeorm';
 
-export class CreateTableGalleryImages1634480926104 implements MigrationInterface {
-    public async up(queryRunner: QueryRunner): Promise<void> {
+export class CreateTableGalleryImages1634480926104 implements typeorm.MigrationInterface {
+    public async up(queryRunner: typeorm.QueryRunner): Promise<void> {
         await queryRunner.query(`
             CREATE TABLE IF NOT EXISTS gallery_images (
                 id int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -17,7 +17,7 @@ export class CreateTableGalleryImages1634480926104 implements MigrationInterface
         `);
     }
 
-    public async down(queryRunner: QueryRunner): Promise<void> {
+    public async down(queryRunner: typeorm.QueryRunner): Promise<void> {
         await queryRunner.query(`DROP TABLE IF EXISTS gallery_images;`);
     }
 }

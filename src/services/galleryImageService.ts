@@ -1,4 +1,4 @@
-import { dataSource } from '../database';
+import * as database from '../database';
 import GalleryImage from '../models/GalleryImage';
 
 interface IGalleryImageInstance {
@@ -9,7 +9,7 @@ interface IGalleryImageInstance {
     imageUrl: string;
 }
 
-const galleryImageRepository = dataSource.getRepository(GalleryImage).extend({
+const galleryImageRepository = database.dataSource.getRepository(GalleryImage).extend({
     async findAllWQB(wDeleted: number, wOrderColumn: string, wOrderType: string, wLimit: number, wRandom: boolean): Promise<GalleryImage[]> {
         const query = this.createQueryBuilder('galleryImages');
 
@@ -32,7 +32,7 @@ const galleryImageRepository = dataSource.getRepository(GalleryImage).extend({
         return await query.getOne();
     },
     async saveWT(galleryImage: GalleryImage): Promise<GalleryImage | null> {
-        const queryRunner = dataSource.createQueryRunner();
+        const queryRunner = database.dataSource.createQueryRunner();
         
         await queryRunner.connect();
         await queryRunner.startTransaction();
@@ -60,7 +60,7 @@ const galleryImageRepository = dataSource.getRepository(GalleryImage).extend({
         return (ok ? galleryImage : null);
     },
     async softDeleteWT(id: number): Promise<boolean | null> {
-        const queryRunner = dataSource.createQueryRunner();
+        const queryRunner = database.dataSource.createQueryRunner();
         
         await queryRunner.connect();
         await queryRunner.startTransaction();

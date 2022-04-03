@@ -1,9 +1,9 @@
-import { DataSource } from 'typeorm';
+import * as typeorm from 'typeorm';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-export const dataSource = new DataSource({
+export const dataSource = new typeorm.DataSource({
     type: 'mariadb',
     host: process.env.MYSQL_HOST,
     port: process.env.MYSQL_PORT as unknown as number,

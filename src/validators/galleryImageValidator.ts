@@ -1,6 +1,6 @@
-import { checkSchema } from 'express-validator';
+import * as expressValidator from 'express-validator';
 
-export const store = checkSchema({
+export const store = expressValidator.checkSchema({
     name: {
         trim: true,
         escape: true,
@@ -19,7 +19,7 @@ export const store = checkSchema({
     }
 });
 
-export const update = checkSchema({
+export const update = expressValidator.checkSchema({
     name: {
         trim: true,
         escape: true,

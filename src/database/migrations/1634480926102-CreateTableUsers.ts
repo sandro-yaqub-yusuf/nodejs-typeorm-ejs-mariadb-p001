@@ -1,7 +1,7 @@
-import {MigrationInterface, QueryRunner} from 'typeorm';
+import * as typeorm from 'typeorm';
 
-export class CreateTableUsers1634480926102 implements MigrationInterface {
-    public async up(queryRunner: QueryRunner): Promise<void> {
+export class CreateTableUsers1634480926102 implements typeorm.MigrationInterface {
+    public async up(queryRunner: typeorm.QueryRunner): Promise<void> {
         await queryRunner.query(`
             CREATE TABLE IF NOT EXISTS users (
                 id int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -21,7 +21,7 @@ export class CreateTableUsers1634480926102 implements MigrationInterface {
         `);
     }
 
-    public async down(queryRunner: QueryRunner): Promise<void> {
+    public async down(queryRunner: typeorm.QueryRunner): Promise<void> {
         await queryRunner.query(`DROP TABLE IF EXISTS users;`);
     }
 }

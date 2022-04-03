@@ -1,8 +1,8 @@
-import { Router } from 'express';
+import express from 'express';
 import AdminHomeController from '../controllers/adminHomeController';
 import AuthMiddleware from '../middlewares/authMiddleware';
 
-const adminHomeRouter = Router();
+const adminHomeRouter = express.Router();
 
 adminHomeRouter.get('/admin', AuthMiddleware, AdminHomeController.index);
 

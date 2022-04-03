@@ -1,6 +1,6 @@
-import { checkSchema } from 'express-validator';
+import * as expressValidator from 'express-validator';
 
-export const store = checkSchema({
+export const store = expressValidator.checkSchema({
     userTypeId: {
         in: 'body',
         isIn: { options: [[1, 2, 3]] },
@@ -47,7 +47,7 @@ export const store = checkSchema({
     }
 });
 
-export const update = checkSchema({
+export const update = expressValidator.checkSchema({
     userTypeId: {
         in: 'body',
         isIn: { options: [[1, 2, 3]] },

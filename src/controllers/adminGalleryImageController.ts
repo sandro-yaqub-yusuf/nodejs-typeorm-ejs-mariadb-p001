@@ -1,11 +1,11 @@
-import { Request, Response } from 'express';
-import { validationResult } from 'express-validator';
-import { unlink } from 'fs/promises';
+import express from 'express';
 import sharp from 'sharp';
+import * as promises from 'fs/promises';
+import * as expressValidator from 'express-validator';
 import GalleryImageService from '../services/galleryImageService';
 
 class AdminGalleryImageController {
-    public async index(req: Request, res: Response): Promise<void> {
+    public async index(req: express.Request, res: express.Response): Promise<void> {
         const sessionFlash = req.session.sessionFlash;
         
         delete req.session.sessionFlash;
@@ -15,7 +15,7 @@ class AdminGalleryImageController {
         });
     }
 
-    public async create(req: Request, res: Response): Promise<void> {
+    public async create(req: express.Request, res: express.Response): Promise<void> {
         delete req.session.sessionFlash;
 
         if (req.session.userTypeId !== 1) {
@@ -27,12 +27,12 @@ class AdminGalleryImageController {
         }
     }
 
-    public async store(req: Request, res: Response): Promise<void> {
+    public async store(req: express.Request, res: express.Response): Promise<void> {
         delete req.session.sessionFlash;
 
         const galleryImageData = req.body;
         const fileUpload = (req.file ? req.file : null);
-        const errors = validationResult(req);
+        const errors = expressValidator.validationResult(req);
 
         if (errors.isEmpty() === false) {
             res.render('admin/galleryImage/create', { galleryImageData, sessionUser: req.session, sessionFlash: { type: 'danger', message: errors.array() } });
@@ -42,7 +42,7 @@ class AdminGalleryImageController {
 
                 sharp(fileUpload.path)
                     .resize(parseInt(galleryImageData.imageWidth), parseInt(galleryImageData.imageHeight)).toFormat('jpg').toFile(`./${process.env.IMAGE_URL_PUBLIC + galleryImageData.imageUrl}`).then(() => {
-                        unlink(fileUpload.path).then(() => {
+                        promises.unlink(fileUpload.path).then(() => {
                             // Salva o dado depois que a imagem redimensionada e transferida para a pasta final
                             GalleryImageService.store(galleryImageData).then(() => {
                                 req.session.sessionFlash = { type: 'success', message: 'Imagem cadastrada com sucesso...' };
@@ -77,7 +77,7 @@ class AdminGalleryImageController {
         }
     }
 
-    public async edit(req: Request, res: Response): Promise<void> {
+    public async edit(req: express.Request, res: express.Response): Promise<void> {
         delete req.session.sessionFlash;
 
         if (req.session.userTypeId !== 1) {
@@ -103,7 +103,7 @@ class AdminGalleryImageController {
         }
     }
 
-    public async update(req: Request, res: Response): Promise<void> {
+    public async update(req: express.Request, res: express.Response): Promise<void> {
         delete req.session.sessionFlash;
 
         const { id } = req.params;
@@ -112,7 +112,7 @@ class AdminGalleryImageController {
         galleryImageData.id = parseInt(req.params.id);
 
         const fileUpload = (req.file ? req.file : null);
-        const errors = validationResult(req);
+        const errors = expressValidator.validationResult(req);
 
         if (errors.isEmpty() === false) {
             res.render('admin/galleryImage/edit', { galleryImageData, sessionUser: req.session, sessionFlash: { type: 'danger', message: errors.array() } });
@@ -120,7 +120,7 @@ class AdminGalleryImageController {
             if (fileUpload) {
                 GalleryImageService.getById(parseInt(id)).then(galleryImageData => {
                     if (galleryImageData) {
-                        unlink((__dirname.replace('\\src\\controllers', '\\public') + galleryImageData.imageUrl)).then(() => {
+                        promises.unlink((__dirname.replace('\\src\\controllers', '\\public') + galleryImageData.imageUrl)).then(() => {
                             // Imagem fo excluída com sucesso
                         }).catch(error => {
                             res.render('admin/galleryImage/create', {
@@ -144,7 +144,7 @@ class AdminGalleryImageController {
 
                 sharp(fileUpload.path)
                     .resize(parseInt(galleryImageData.imageWidth), parseInt(galleryImageData.imageHeight)).toFormat('jpg').toFile(`./${process.env.IMAGE_URL_PUBLIC + galleryImageData.imageUrl}`).then(() => {
-                        unlink(fileUpload.path).then(() => {
+                        promises.unlink(fileUpload.path).then(() => {
                             // Imagem redimensionada e transferida para a pasta final
                         }).catch(error => {
                             res.render('admin/galleryImage/create', {
@@ -174,7 +174,7 @@ class AdminGalleryImageController {
         }
     }
 
-    public async delete(req: Request, res: Response): Promise<void> {
+    public async delete(req: express.Request, res: express.Response): Promise<void> {
         delete req.session.sessionFlash;
 
         if (req.session.userTypeId !== 1) {
@@ -200,14 +200,14 @@ class AdminGalleryImageController {
         }
     }
 
-    public async destroy(req: Request, res: Response): Promise<void> {
+    public async destroy(req: express.Request, res: express.Response): Promise<void> {
         delete req.session.sessionFlash;
 
         const { id } = req.params;
 
         GalleryImageService.getById(parseInt(id)).then(galleryImageData => {
             if (galleryImageData) {
-                unlink((__dirname.replace('\\src\\controllers', '\\public') + galleryImageData.imageUrl)).then(() => {
+                promises.unlink((__dirname.replace('\\src\\controllers', '\\public') + galleryImageData.imageUrl)).then(() => {
                     // Exclui o dado depois que a imagem fo excluída com sucesso
                     GalleryImageService.destroy(parseInt(id)).then(() => {
                         req.session.sessionFlash = { type: 'success', message: 'Imagem excluída com sucesso...' };
@@ -237,7 +237,7 @@ class AdminGalleryImageController {
         });
     }
 
-    public async show(req: Request, res: Response): Promise<void> {
+    public async show(req: express.Request, res: express.Response): Promise<void> {
         delete req.session.sessionFlash;
 
         const { id } = req.params;

@@ -1,9 +1,9 @@
-import { Router } from 'express';
+import express from 'express';
+import * as UserTypeValidator from '../validators/userTypeValidator';
 import AdminUserTypeController from '../controllers/adminUserTypeController';
 import AuthMiddleware from '../middlewares/authMiddleware';
-import * as UserTypeValidator from '../validators/userTypeValidator';
 
-const adminUserTypeRouter = Router();
+const adminUserTypeRouter = express.Router();
 
 adminUserTypeRouter.get('/listar', AuthMiddleware, AdminUserTypeController.index);
 adminUserTypeRouter.get('/editar/:id', AuthMiddleware, AdminUserTypeController.edit);

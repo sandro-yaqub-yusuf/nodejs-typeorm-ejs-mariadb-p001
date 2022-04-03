@@ -1,9 +1,9 @@
-import { Request, Response } from 'express';
-import { validationResult } from 'express-validator';
+import express from 'express';
+import * as ExpressValidator from 'express-validator';
 import UserTypeService from '../services/userTypeService';
 
 class AdminUserTypeController {
-    public async index(req: Request, res: Response): Promise<void> {
+    public async index(req: express.Request, res: express.Response): Promise<void> {
         const sessionFlash = req.session.sessionFlash;
         
         delete req.session.sessionFlash;
@@ -13,7 +13,7 @@ class AdminUserTypeController {
         });
     }
 
-    public async edit(req: Request, res: Response): Promise<void> {
+    public async edit(req: express.Request, res: express.Response): Promise<void> {
         delete req.session.sessionFlash;
 
         if (req.session.userTypeId !== 1) {
@@ -39,14 +39,14 @@ class AdminUserTypeController {
         }
     }
 
-    public async update(req: Request, res: Response): Promise<void> {
+    public async update(req: express.Request, res: express.Response): Promise<void> {
         delete req.session.sessionFlash;
 
         const userTypeData = req.body;
 
         userTypeData.id = parseInt(req.params.id);
 
-        const errors = validationResult(req);
+        const errors = ExpressValidator.validationResult(req);
 
         if (errors.isEmpty() === false) {
             res.render('admin/userType/edit', { userTypeData, sessionUser: req.session, sessionFlash: { type: 'danger', message: errors.array() } });
@@ -63,7 +63,7 @@ class AdminUserTypeController {
         }
     }
 
-    public async show(req: Request, res: Response): Promise<void> {
+    public async show(req: express.Request, res: express.Response): Promise<void> {
         delete req.session.sessionFlash;
 
         const { id } = req.params;

@@ -1,6 +1,6 @@
-import { checkSchema } from 'express-validator';
+import * as expressValidator from 'express-validator';
 
-export const login = checkSchema({
+export const login = expressValidator.checkSchema({
     login: {
         trim: true,
         escape: true,

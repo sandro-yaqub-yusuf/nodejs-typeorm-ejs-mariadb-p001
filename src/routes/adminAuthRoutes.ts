@@ -1,9 +1,9 @@
-import { Router } from 'express';
+import express from 'express';
+import * as AuthValidator from '../validators/authValidator';
 import AdminAuthController from '../controllers/adminAuthController';
 import AuthMiddleware from '../middlewares/authMiddleware';
-import * as AuthValidator from '../validators/authValidator';
 
-const adminAuthRouter = Router();
+const adminAuthRouter = express.Router();
 
 adminAuthRouter.get('/login', AdminAuthController.login);
 adminAuthRouter.post('/login', AuthValidator.login, AdminAuthController.loginAction);

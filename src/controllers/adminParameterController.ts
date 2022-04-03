@@ -1,8 +1,8 @@
-import { Request, Response } from 'express';
+import express from 'express';
 import ParameterService from '../services/parameterService';
 
 class AdminParameterController {
-    public async index(req: Request, res: Response): Promise<void> {
+    public async index(req: express.Request, res: express.Response): Promise<void> {
         const sessionFlash = req.session.sessionFlash;
         
         delete req.session.sessionFlash;
@@ -12,7 +12,7 @@ class AdminParameterController {
         });
     }
 
-    public async edit(req: Request, res: Response): Promise<void> {
+    public async edit(req: express.Request, res: express.Response): Promise<void> {
         delete req.session.sessionFlash;
 
         if (req.session.userTypeId !== 1) {
@@ -38,7 +38,7 @@ class AdminParameterController {
         }
     }
 
-    public async update(req: Request, res: Response): Promise<void> {
+    public async update(req: express.Request, res: express.Response): Promise<void> {
         delete req.session.sessionFlash;
 
         const parameterData = req.body;
@@ -56,7 +56,7 @@ class AdminParameterController {
         });
     }
 
-    public async show(req: Request, res: Response): Promise<void> {
+    public async show(req: express.Request, res: express.Response): Promise<void> {
         delete req.session.sessionFlash;
 
         const { id } = req.params;

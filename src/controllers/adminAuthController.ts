@@ -1,10 +1,10 @@
-import { Request, Response } from 'express';
-import { validationResult } from 'express-validator';
+import express from 'express';
+import * as ExpressValidator from 'express-validator';
 import AuthService from '../services/authService';
 import ParameterService from '../services/parameterService';
 
 class AdminAuthController {
-    public async login(req: Request, res: Response): Promise<void> {
+    public async login(req: express.Request, res: express.Response): Promise<void> {
         delete req.session.sessionFlash;
 
         if (!req.session.parameters) {
@@ -27,9 +27,9 @@ class AdminAuthController {
         }
     }
 
-    public async loginAction(req: Request, res: Response): Promise<void> {
+    public async loginAction(req: express.Request, res: express.Response): Promise<void> {
         const userData = req.body;
-        const errors = validationResult(req);
+        const errors = ExpressValidator.validationResult(req);
 
         if (errors.isEmpty() === false) {
             res.render('admin/auth/login', { sessionFlash: { type: 'danger', message: errors.array() } });
@@ -50,7 +50,7 @@ class AdminAuthController {
         }
     }
 
-    public async logout(req: Request, res: Response): Promise<void> {
+    public async logout(req: express.Request, res: express.Response): Promise<void> {
         req.session.destroy(() => {
             res.clearCookie('qid')
 

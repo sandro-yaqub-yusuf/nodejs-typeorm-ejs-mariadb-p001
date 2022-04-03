@@ -1,4 +1,4 @@
-import { dataSource } from '../database';
+import * as database from '../database';
 import Parameter from '../models/Parameter';
 
 interface IParameterInstance {
@@ -7,7 +7,7 @@ interface IParameterInstance {
     value: string;
 }
 
-const parameterRepository = dataSource.getRepository(Parameter);
+const parameterRepository = database.dataSource.getRepository(Parameter);
 
 class ParameterService {
     public async getAll(): Promise<Parameter[]> {

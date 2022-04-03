@@ -1,4 +1,4 @@
-import { dataSource } from '../database';
+import * as database from '../database';
 import Menu from '../models/Menu';
 
 interface IMenuInstance {
@@ -10,7 +10,7 @@ interface IMenuInstance {
     siteEnable?: number;
 }
 
-const menuRepository = dataSource.getRepository(Menu).extend({
+const menuRepository = database.dataSource.getRepository(Menu).extend({
     async findAllWQB(siteEnable: number, wDeleted: boolean, wOrderColumn: string, wOrderType: string, wLimit: number, wRandom: boolean): Promise<Menu[]> {
         const query = this.createQueryBuilder('menus');
 
@@ -36,7 +36,7 @@ const menuRepository = dataSource.getRepository(Menu).extend({
         return await query.getOne();
     },
     async saveWT(menu: Menu): Promise<Menu | null> {
-        const queryRunner = dataSource.createQueryRunner();
+        const queryRunner = database.dataSource.createQueryRunner();
         
         await queryRunner.connect();
         await queryRunner.startTransaction();
@@ -64,7 +64,7 @@ const menuRepository = dataSource.getRepository(Menu).extend({
         return (ok ? menu : null);
     },
     async softDeleteWT(id: number): Promise<boolean | null> {
-        const queryRunner = dataSource.createQueryRunner();
+        const queryRunner = database.dataSource.createQueryRunner();
         
         await queryRunner.connect();
         await queryRunner.startTransaction();

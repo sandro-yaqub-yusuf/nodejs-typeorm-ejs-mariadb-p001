@@ -1,7 +1,7 @@
-import {MigrationInterface, QueryRunner} from 'typeorm';
+import * as typeorm from 'typeorm';
 
-export class SeedTableUsersTypes1634480926301 implements MigrationInterface {
-    public async up(queryRunner: QueryRunner): Promise<void> {
+export class SeedTableUsersTypes1634480926301 implements typeorm.MigrationInterface {
+    public async up(queryRunner: typeorm.QueryRunner): Promise<void> {
         await queryRunner.query(`
             INSERT INTO users_types (id, name, created_at, updated_at, deleted_at) VALUES
             (1, 'Administrador', '2022-01-01 09:00:00', '2022-01-01 09:00:00', NULL),
@@ -10,7 +10,7 @@ export class SeedTableUsersTypes1634480926301 implements MigrationInterface {
         `);
     }
 
-    public async down(queryRunner: QueryRunner): Promise<void> {
+    public async down(queryRunner: typeorm.QueryRunner): Promise<void> {
         await queryRunner.query(`DELETE FROM users_types;`);
     }
 }

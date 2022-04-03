@@ -1,7 +1,7 @@
-import { Request, Response } from 'express';
+import express from 'express';
 
 class AdminHomeController {
-    public async index(req: Request, res: Response): Promise<void> {
+    public async index(req: express.Request, res: express.Response): Promise<void> {
         delete req.session.sessionFlash;
 
         res.render('admin/dashboard', { sessionUser: req.session });

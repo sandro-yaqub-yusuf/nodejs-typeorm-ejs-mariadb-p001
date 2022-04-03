@@ -1,4 +1,4 @@
-import { dataSource } from '../database';
+import * as database from '../database';
 import Page from '../models/Page';
 
 interface IPageInstance {
@@ -10,7 +10,7 @@ interface IPageInstance {
     siteEnable?: number;
 }
 
-const pageRepository = dataSource.getRepository(Page).extend({
+const pageRepository = database.dataSource.getRepository(Page).extend({
     async findAllWQB(siteEnable: number, wDeleted: boolean, wOrderColumn: string, wOrderType: string, wLimit: number, wRandom: boolean): Promise<Page[]> {
         const query = this.createQueryBuilder('pages');
 
@@ -36,7 +36,7 @@ const pageRepository = dataSource.getRepository(Page).extend({
         return await query.getOne();
     },
     async saveWT(page: Page): Promise<Page | null> {
-        const queryRunner = dataSource.createQueryRunner();
+        const queryRunner = database.dataSource.createQueryRunner();
         
         await queryRunner.connect();
         await queryRunner.startTransaction();
@@ -64,7 +64,7 @@ const pageRepository = dataSource.getRepository(Page).extend({
         return (ok ? page : null);
     },
     async softDeleteWT(id: number): Promise<boolean | null> {
-        const queryRunner = dataSource.createQueryRunner();
+        const queryRunner = database.dataSource.createQueryRunner();
         
         await queryRunner.connect();
         await queryRunner.startTransaction();

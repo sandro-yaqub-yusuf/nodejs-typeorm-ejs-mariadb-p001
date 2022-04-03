@@ -1,11 +1,11 @@
-import { Router } from 'express';
+import express from 'express';
 import multer from 'multer';
 import uploadConfig from '../configs/upload';
+import * as GalleryImageValidator from '../validators/galleryImageValidator';
 import AdminGalleryImageController from '../controllers/adminGalleryImageController';
 import AuthMiddleware from '../middlewares/authMiddleware';
-import * as GalleryImageValidator from '../validators/galleryImageValidator';
 
-const adminGalleryImageRouter = Router();
+const adminGalleryImageRouter = express.Router();
 const upload = multer(uploadConfig);
 
 adminGalleryImageRouter.get('/listar', AuthMiddleware, AdminGalleryImageController.index);

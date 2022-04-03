@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import express from 'express';
 import AdminAuthRouter from './adminAuthRoutes';
 import AdminGalleryImageRouter from './adminGalleryImageRoutes';
 import AdminHomeRouter from './adminHomeRoutes';
@@ -9,7 +9,7 @@ import AdminUserRouter from './adminUserRoutes';
 import AdminUserTypeRouter from './adminUserTypeRoutes';
 import SiteHomeRouter from './siteHomeRoutes';
 
-const routes = Router();
+const routes = express.Router();
 
 routes.use('/', SiteHomeRouter);
 routes.use('/', AdminHomeRouter);

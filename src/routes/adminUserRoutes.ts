@@ -1,11 +1,11 @@
-import { Router } from 'express';
+import express from 'express';
 import multer from 'multer';
 import uploadConfig from '../configs/upload';
+import * as UserValidator from '../validators/userValidator';
 import AdminUserController from '../controllers/adminUserController';
 import AuthMiddleware from '../middlewares/authMiddleware';
-import * as UserValidator from '../validators/userValidator';
 
-const adminUserRouter = Router();
+const adminUserRouter = express.Router();
 const upload = multer(uploadConfig);
 
 adminUserRouter.get('/listar', AuthMiddleware, AdminUserController.index);

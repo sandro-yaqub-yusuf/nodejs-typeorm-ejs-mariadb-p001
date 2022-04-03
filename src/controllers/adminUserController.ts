@@ -1,12 +1,12 @@
-import { Request, Response } from 'express';
-import { validationResult } from 'express-validator';
-import { unlink } from 'fs/promises';
+import express from 'express';
 import sharp from 'sharp';
+import * as promises from 'fs/promises';
+import * as expressValidator from 'express-validator';
 import UserService from '../services/userService';
 import UserTypeService from '../services/userTypeService';
 
 class AdminUserController {
-    public async index(req: Request, res: Response): Promise<void> {
+    public async index(req: express.Request, res: express.Response): Promise<void> {
         const sessionFlash = req.session.sessionFlash;
         
         delete req.session.sessionFlash;
@@ -16,7 +16,7 @@ class AdminUserController {
         });
     }
     
-    public async create(req: Request, res: Response): Promise<void> {
+    public async create(req: express.Request, res: express.Response): Promise<void> {
         delete req.session.sessionFlash;
 
         const userTypeList = await UserTypeService.getAll();
@@ -30,13 +30,13 @@ class AdminUserController {
         }
     }
 
-    public async store(req: Request, res: Response): Promise<void> {
+    public async store(req: express.Request, res: express.Response): Promise<void> {
         delete req.session.sessionFlash;
 
         const userData = req.body;
         const userTypeList = await UserTypeService.getAll();
         const fileUpload = (req.file ? req.file : null);
-        const errors = validationResult(req);
+        const errors = expressValidator.validationResult(req);
 
         if (errors.isEmpty() === false) {
             res.render('admin/user/create', { userData, userTypeList, sessionUser: req.session, sessionFlash: { type: 'danger', message: errors.array() } });
@@ -46,7 +46,7 @@ class AdminUserController {
 
                 sharp(fileUpload.path)
                     .resize(200, 200).toFormat('jpg').toFile(`./${process.env.IMAGE_URL_PUBLIC + userData.imageUrl}`).then(() => {
-                        unlink(fileUpload.path).then(() => {
+                        promises.unlink(fileUpload.path).then(() => {
                             // Imagem redimensionada e transferida para a pasta final
                         }).catch(error => {
                             res.render('admin/user/create', {
@@ -80,7 +80,7 @@ class AdminUserController {
         }
     }
 
-    public async edit(req: Request, res: Response): Promise<void> {
+    public async edit(req: express.Request, res: express.Response): Promise<void> {
         delete req.session.sessionFlash;
 
         if (req.session.userTypeId !== 1) {
@@ -108,7 +108,7 @@ class AdminUserController {
         }
     }
 
-    public async update(req: Request, res: Response): Promise<void> {
+    public async update(req: express.Request, res: express.Response): Promise<void> {
         delete req.session.sessionFlash;
 
         const userData = req.body;
@@ -117,7 +117,7 @@ class AdminUserController {
 
         const userTypeList = await UserTypeService.getAll();
         const fileUpload = (req.file ? req.file : null);
-        const errors = validationResult(req);
+        const errors = expressValidator.validationResult(req);
 
         if (errors.isEmpty() === false) {
             res.render('admin/user/edit', { userData, userTypeList, sessionUser: req.session, sessionFlash: { type: 'danger', message: errors.array() } });
@@ -127,7 +127,7 @@ class AdminUserController {
 
                 sharp(fileUpload.path)
                     .resize(200, 200).toFormat('jpg').toFile(`./${process.env.IMAGE_URL_PUBLIC + userData.imageUrl}`).then(() => {
-                        unlink(fileUpload.path).then(() => {
+                        promises.unlink(fileUpload.path).then(() => {
                             // Imagem redimensionada e transferida para a pasta final
                         }).catch(error => {
                             res.render('admin/user/edit', {
@@ -159,7 +159,7 @@ class AdminUserController {
         }
     }
 
-    public async delete(req: Request, res: Response): Promise<void> {
+    public async delete(req: express.Request, res: express.Response): Promise<void> {
         delete req.session.sessionFlash;
 
         if (req.session.userTypeId !== 1) {
@@ -185,7 +185,7 @@ class AdminUserController {
         }
     }
 
-    public async destroy(req: Request, res: Response): Promise<void> {
+    public async destroy(req: express.Request, res: express.Response): Promise<void> {
         delete req.session.sessionFlash;
 
         const { id } = req.params;
@@ -201,7 +201,7 @@ class AdminUserController {
         });
     }
 
-    public async show(req: Request, res: Response): Promise<void> {
+    public async show(req: express.Request, res: express.Response): Promise<void> {
         delete req.session.sessionFlash;
 
         const { id } = req.params;

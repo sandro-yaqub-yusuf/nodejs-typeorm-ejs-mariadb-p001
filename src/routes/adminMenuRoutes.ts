@@ -1,9 +1,9 @@
-import { Router } from 'express';
+import express from 'express';
+import * as MenuValidator from '../validators/menuValidator';
 import AdminMenuController from '../controllers/adminMenuController';
 import AuthMiddleware from '../middlewares/authMiddleware';
-import * as MenuValidator from '../validators/menuValidator';
 
-const adminMenuRouter = Router();
+const adminMenuRouter = express.Router();
 
 adminMenuRouter.get('/listar', AuthMiddleware, AdminMenuController.index);
 adminMenuRouter.get('/novo', AuthMiddleware, AdminMenuController.create);

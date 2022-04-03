@@ -1,7 +1,7 @@
-import {MigrationInterface, QueryRunner} from 'typeorm';
+import * as typeorm from 'typeorm';
 
-export class SeedTableParameters1634480926303 implements MigrationInterface {
-    public async up(queryRunner: QueryRunner): Promise<void> {
+export class SeedTableParameters1634480926303 implements typeorm.MigrationInterface {
+    public async up(queryRunner: typeorm.QueryRunner): Promise<void> {
         await queryRunner.query(`
             INSERT INTO parameters (attribute, value) VALUES
             ('ADMIN-DESCRIPTION', 'Site para gerenciar Páginas e Usuários - Desenvolvido pela empresa KITAB INFORMÁTICA LTDA - ME.'),
@@ -40,7 +40,7 @@ export class SeedTableParameters1634480926303 implements MigrationInterface {
         `);
     }
 
-    public async down(queryRunner: QueryRunner): Promise<void> {
+    public async down(queryRunner: typeorm.QueryRunner): Promise<void> {
         await queryRunner.query(`DELETE FROM users_types;`);
     }
 }

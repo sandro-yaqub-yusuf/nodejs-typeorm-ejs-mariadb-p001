@@ -1,9 +1,9 @@
-import { dataSource } from '../database';
+import * as database from '../database';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User from '../models/User';
 
-const authRepository = dataSource.getRepository(User);
+const authRepository = database.dataSource.getRepository(User);
 
 class UserService {
     public async authenticateByLogin({ login, password }: { login: string; password: string; }): Promise<any> {

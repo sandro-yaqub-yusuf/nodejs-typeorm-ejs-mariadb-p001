@@ -1,8 +1,8 @@
-import { Router } from 'express';
+import express from 'express';
 import AdminParameterController from '../controllers/adminParameterController';
 import AuthMiddleware from '../middlewares/authMiddleware';
 
-const adminParameterRouter = Router();
+const adminParameterRouter = express.Router();
 
 adminParameterRouter.get('/listar', AuthMiddleware, AdminParameterController.index);
 adminParameterRouter.get('/editar/:id', AuthMiddleware, AdminParameterController.edit);

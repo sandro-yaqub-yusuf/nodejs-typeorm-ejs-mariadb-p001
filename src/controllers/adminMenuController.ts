@@ -1,9 +1,9 @@
-import { Request, Response } from 'express';
-import { validationResult } from 'express-validator';
+import express from 'express';
+import * as expressValidator from 'express-validator';
 import MenuService from '../services/menuService';
 
 class AdminMenuController {
-    public async index(req: Request, res: Response): Promise<void> {
+    public async index(req: express.Request, res: express.Response): Promise<void> {
         const sessionFlash = req.session.sessionFlash;
         
         delete req.session.sessionFlash;
@@ -13,7 +13,7 @@ class AdminMenuController {
         });
     }
 
-    public async create(req: Request, res: Response): Promise<void> {
+    public async create(req: express.Request, res: express.Response): Promise<void> {
         delete req.session.sessionFlash;
 
         if (req.session.userTypeId !== 1) {
@@ -25,11 +25,11 @@ class AdminMenuController {
         }
     }
 
-    public async store(req: Request, res: Response): Promise<void> {
+    public async store(req: express.Request, res: express.Response): Promise<void> {
         delete req.session.sessionFlash;
 
         const menuData = req.body;
-        const errors = validationResult(req);
+        const errors = expressValidator.validationResult(req);
 
         if (errors.isEmpty() === false) {
             res.render('admin/menu/create', { menuData, sessionUser: req.session, sessionFlash: { type: 'danger', message: errors.array() } });
@@ -46,7 +46,7 @@ class AdminMenuController {
         }
     }
 
-    public async edit(req: Request, res: Response): Promise<void> {
+    public async edit(req: express.Request, res: express.Response): Promise<void> {
         delete req.session.sessionFlash;
 
         if (req.session.userTypeId !== 1) {
@@ -72,14 +72,14 @@ class AdminMenuController {
         }
     }
 
-    public async update(req: Request, res: Response): Promise<void> {
+    public async update(req: express.Request, res: express.Response): Promise<void> {
         delete req.session.sessionFlash;
 
         const menuData = req.body;
 
         menuData.id = parseInt(req.params.id);
 
-        const errors = validationResult(req);
+        const errors = expressValidator.validationResult(req);
 
         if (errors.isEmpty() === false) {
             res.render('admin/menu/edit', { menuData, sessionUser: req.session, sessionFlash: { type: 'danger', message: errors.array() } });
@@ -96,7 +96,7 @@ class AdminMenuController {
         }
     }
 
-    public async delete(req: Request, res: Response): Promise<void> {
+    public async delete(req: express.Request, res: express.Response): Promise<void> {
         delete req.session.sessionFlash;
 
         if (req.session.userTypeId !== 1) {
@@ -122,7 +122,7 @@ class AdminMenuController {
         }
     }
 
-    public async destroy(req: Request, res: Response): Promise<void> {
+    public async destroy(req: express.Request, res: express.Response): Promise<void> {
         delete req.session.sessionFlash;
 
         const { id } = req.params;
@@ -138,7 +138,7 @@ class AdminMenuController {
         });
     }
 
-    public async show(req: Request, res: Response): Promise<void> {
+    public async show(req: express.Request, res: express.Response): Promise<void> {
         delete req.session.sessionFlash;
 
         const { id } = req.params;

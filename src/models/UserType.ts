@@ -1,23 +1,23 @@
-import { Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import * as typeorm from 'typeorm';
 import User from './User';
 
-@Entity('users_types')
+@typeorm.Entity('users_types')
 export default class UserType {
-    @PrimaryGeneratedColumn({ type: 'int', name: 'id', unsigned: true })
+    @typeorm.PrimaryGeneratedColumn({ type: 'int', name: 'id', unsigned: true })
     id: number;
 
-    @Column('varchar', { name: 'name', length: 50 })
+    @typeorm.Column('varchar', { name: 'name', length: 50 })
     name: string;
 
-    @CreateDateColumn({ name: 'created_at', default: () => "'current_timestamp(6)'" })
+    @typeorm.CreateDateColumn({ name: 'created_at', default: () => "'current_timestamp(6)'" })
     createdAt: Date;
 
-    @UpdateDateColumn({ name: 'updated_at', nullable: true, default: () => "'current_timestamp(6)'" })
+    @typeorm.UpdateDateColumn({ name: 'updated_at', nullable: true, default: () => "'current_timestamp(6)'" })
     updatedAt: Date | null;
 
-    @DeleteDateColumn({ name: 'deleted_at', nullable: true })
+    @typeorm.DeleteDateColumn({ name: 'deleted_at', nullable: true })
     deletedAt: Date | null;
 
-    @OneToMany(() => User, (user) => user.userType)
+    @typeorm.OneToMany(() => User, (user) => user.userType)
     users: User[];
 }

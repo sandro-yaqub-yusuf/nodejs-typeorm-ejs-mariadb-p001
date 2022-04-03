@@ -8,7 +8,7 @@ export default {
     directory: uploadFolder,
     storage: multer.diskStorage({
         destination: uploadFolderTemp,
-        filename(request, file, callback) {
+        filename(_request, file, callback): void {
             const uniqueSuffix = (Date.now() + path.extname(file.originalname));
             const fileName = file.originalname.replace(path.extname(file.originalname), '');
     

@@ -1,7 +1,7 @@
-import { Router } from 'express';
+import express from 'express';
 import SiteHomeController from '../controllers/siteHomeController';
 
-const siteHomeRouter = Router();
+const siteHomeRouter = express.Router();
 
 siteHomeRouter.get('/', SiteHomeController.index);
 siteHomeRouter.get('/pagina/:id', SiteHomeController.page);

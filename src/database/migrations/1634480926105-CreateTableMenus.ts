@@ -1,7 +1,7 @@
-import {MigrationInterface, QueryRunner} from 'typeorm';
+import * as typeorm from 'typeorm';
 
-export class CreateTableMenus1634480926105 implements MigrationInterface {
-    public async up(queryRunner: QueryRunner): Promise<void> {
+export class CreateTableMenus1634480926105 implements typeorm.MigrationInterface {
+    public async up(queryRunner: typeorm.QueryRunner): Promise<void> {
         await queryRunner.query(`
             CREATE TABLE IF NOT EXISTS menus (
                 id int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -18,7 +18,7 @@ export class CreateTableMenus1634480926105 implements MigrationInterface {
         `);
     }
 
-    public async down(queryRunner: QueryRunner): Promise<void> {
+    public async down(queryRunner: typeorm.QueryRunner): Promise<void> {
         await queryRunner.query(`DROP TABLE IF EXISTS menus;`);
     }
 }
