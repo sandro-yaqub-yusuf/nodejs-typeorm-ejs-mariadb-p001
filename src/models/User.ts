@@ -45,7 +45,7 @@ export default class User {
 
     @typeorm.ManyToOne(() => UserType, (userType) => userType.users, {
         onDelete: 'RESTRICT',
-        onUpdate: 'RESTRICT',
+        onUpdate: 'RESTRICT'
     })
 	
     @typeorm.JoinColumn([{ name: 'user_type_id', referencedColumnName: 'id' }])
