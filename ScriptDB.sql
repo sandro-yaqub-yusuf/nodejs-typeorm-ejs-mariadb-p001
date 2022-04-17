@@ -138,15 +138,17 @@ INSERT INTO `parameters` (`id`, `attribute`, `value`) VALUES
 	(22, 'SITE-FOOTER-SOCIAL-MEDIA-SHOW', 'YES'),
 	(23, 'SITE-FOOTER-FACEBOOK-URL', '#'),
 	(24, 'SITE-FOOTER-INSTAGRAM-URL', '#'),
-	(25, 'SITE-FOOTER-LINKEDIN-URL', '#'),
-	(26, 'SITE-FOOTER-TWITTER-URL', '#'),
-	(27, 'SITE-FOOTER-WHATSAPP-SHOW', 'YES'),
-	(28, 'SITE-FOOTER-WHATSAPP-NUMBER-HTML5', '(99) 99999-9999'),
-	(29, 'SITE-FOOTER-INFO-LINE1-HTML5', 'Endereço - Linha 1'),
-	(30, 'SITE-FOOTER-INFO-LINE2-HTML5', 'Endereço - Linha 2'),
-	(31, 'SITE-FOOTER-INFO-LINE3-HTML5', 'São Paulo - SP - CEP 99999-999'),
-	(32, 'SITE-FOOTER-INFO-LINE4-HTML5', 'CNPJ: 99.999.999/9999-99'),
-	(33, 'SITE-FOOTER-INFO-TITLE-HTML5', '<h2>Endereço</h2>');
+	(25, 'SITE-FOOTER-TWITTER-URL', '#'),
+	(26, 'SITE-FOOTER-YOUTUBE-URL', '#'),
+	(27, 'SITE-FOOTER-EMAIL-SHOW', 'YES'),
+	(28, 'SITE-FOOTER-EMAIL-ADDRESS-HTML5', '<a href="mailto:contato@cyberweb.com">contato@cyberweb.com</a>'),
+	(29, 'SITE-FOOTER-WHATSAPP-SHOW', 'YES'),
+	(30, 'SITE-FOOTER-WHATSAPP-NUMBER-HTML5', '<a href="tel:(99) 99999-9999">(99) 99999-9999</a>'),
+	(31, 'SITE-FOOTER-INFO-LINE1-HTML5', 'Endereço - Linha 1'),
+	(32, 'SITE-FOOTER-INFO-LINE2-HTML5', 'Endereço - Linha 2'),
+	(33, 'SITE-FOOTER-INFO-LINE3-HTML5', 'São Paulo - SP - CEP 99999-999'),
+	(34, 'SITE-FOOTER-INFO-LINE4-HTML5', 'CNPJ: 99.999.999/9999-99'),
+	(35, 'SITE-FOOTER-INFO-TITLE-HTML5', '<h2>Endereço</h2>');
 /*!40000 ALTER TABLE `parameters` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela cyberwebdb.users

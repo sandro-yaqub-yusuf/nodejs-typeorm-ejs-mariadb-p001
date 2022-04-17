@@ -8,7 +8,7 @@ p, ul, ol, dl, table { margin-bottom: 26px; }
 
 .row > * { padding: 10px 0 0 50px; }
 
-section, article { margin-bottom: 2em; }
+section, article { margin-bottom: 1em; }
 
 header p { color: #ddd; }
 
@@ -97,6 +97,8 @@ ul.icons li .icon:before { font-size: 2em; }
 #footer ul.divided-no-line li, #footer ul.menu li { border-color: #444; border-color: rgba(255, 255, 255, 0.075); }
 
 #footer ul.divided-no-line li a { text-decoration: none; }
+
+#footer h2 { font-size: 1.35em; color: #fff; margin: 0 0 0.7em 0; }
 
 #copyright { padding: 3em 0 0 0; }
 

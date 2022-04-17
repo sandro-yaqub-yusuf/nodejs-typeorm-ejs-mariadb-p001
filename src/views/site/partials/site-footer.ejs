@@ -20,7 +20,7 @@
                   <% if (getParams(sessionUser.parameters, 'SITE-FOOTER-FACEBOOK-URL').length > 0) { %><li><a href="<%=getParams(sessionUser.parameters, 'SITE-FOOTER-FACEBOOK-URL')%>" target="_blank" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li><% } %>
                   <% if (getParams(sessionUser.parameters, 'SITE-FOOTER-INSTAGRAM-URL').length > 0) { %><li><a href="<%=getParams(sessionUser.parameters, 'SITE-FOOTER-INSTAGRAM-URL')%>" target="_blank" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li><% } %>
                   <% if (getParams(sessionUser.parameters, 'SITE-FOOTER-TWITTER-URL').length > 0) { %><li><a href="<%=getParams(sessionUser.parameters, 'SITE-FOOTER-TWITTER-URL')%>" target="_blank" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li><% } %>
-                  <% if (getParams(sessionUser.parameters, 'SITE-FOOTER-LINKEDIN-URL').length > 0) { %><li><a href="<%=getParams(sessionUser.parameters, 'SITE-FOOTER-LINKEDIN-URL')%>" target="_blank" class="icon brands alt fa-linkedin"><span class="label">Linkedin</span></a></li><% } %>
+                  <% if (getParams(sessionUser.parameters, 'SITE-FOOTER-YOUTUBE-URL').length > 0) { %><li><a href="<%=getParams(sessionUser.parameters, 'SITE-FOOTER-YOUTUBE-URL')%>" target="_blank" class="icon brands alt fa-youtube"><span class="label">Youtube</span></a></li><% } %>
                 </ul>
               </section>
             <% } %>
@@ -29,6 +29,14 @@
                 <h2>WhatsApp</h2>
                 <ul class="icons">
                   <li><i class="icon brands alt fa-whatsapp"></i><span class="label" style="font-size: 18px;"> <%-getParams(sessionUser.parameters, 'SITE-FOOTER-WHATSAPP-NUMBER-HTML5')%></span></li>
+                </ul>
+              </section>
+            <% } %>
+            <% if (getParams(sessionUser.parameters, 'SITE-FOOTER-EMAIL-SHOW') == 'YES') { %>
+              <section>
+                <h2>E-Mail</h2>
+                <ul class="icons">
+                  <li><i class="icon alt fa-envelope"></i><span class="label" style="font-size: 18px;"> <%-getParams(sessionUser.parameters, 'SITE-FOOTER-EMAIL-ADDRESS-HTML5')%></span></li>
                 </ul>
               </section>
             <% } %>
@@ -86,7 +94,7 @@
                   <% if (getParams(sessionUser.parameters, 'SITE-FOOTER-FACEBOOK-URL').length > 0) { %><li><a href="<%=getParams(sessionUser.parameters, 'SITE-FOOTER-FACEBOOK-URL')%>" target="_blank" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li><% } %>
                   <% if (getParams(sessionUser.parameters, 'SITE-FOOTER-INSTAGRAM-URL').length > 0) { %><li><a href="<%=getParams(sessionUser.parameters, 'SITE-FOOTER-INSTAGRAM-URL')%>" target="_blank" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li><% } %>
                   <% if (getParams(sessionUser.parameters, 'SITE-FOOTER-TWITTER-URL').length > 0) { %><li><a href="<%=getParams(sessionUser.parameters, 'SITE-FOOTER-TWITTER-URL')%>" target="_blank" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li><% } %>
-                  <% if (getParams(sessionUser.parameters, 'SITE-FOOTER-LINKEDIN-URL').length > 0) { %><li><a href="<%=getParams(sessionUser.parameters, 'SITE-FOOTER-LINKEDIN-URL')%>" target="_blank" class="icon brands alt fa-linkedin"><span class="label">Linkedin</span></a></li><% } %>
+                  <% if (getParams(sessionUser.parameters, 'SITE-FOOTER-YOUTUBE-URL').length > 0) { %><li><a href="<%=getParams(sessionUser.parameters, 'SITE-FOOTER-YOUTUBE-URL')%>" target="_blank" class="icon brands alt fa-youtube"><span class="label">Youtube</span></a></li><% } %>
                 </ul>
               </section>
             <% } %>
@@ -95,6 +103,14 @@
                 <h2>WhatsApp</h2>
                 <ul class="icons">
                   <li><i class="icon brands alt fa-whatsapp"></i><span class="label" style="font-size: 18px;"> <%-getParams(sessionUser.parameters, 'SITE-FOOTER-WHATSAPP-NUMBER-HTML5')%></span></li>
+                </ul>
+              </section>
+            <% } %>
+            <% if (getParams(sessionUser.parameters, 'SITE-FOOTER-EMAIL-SHOW') == 'YES') { %>
+              <section>
+                <h2>E-Mail</h2>
+                <ul class="icons">
+                  <li><i class="icon alt fa-envelope"></i><span class="label" style="font-size: 18px;"> <%-getParams(sessionUser.parameters, 'SITE-FOOTER-EMAIL-ADDRESS-HTML5')%></span></li>
                 </ul>
               </section>
             <% } %>
