@@ -25,7 +25,7 @@
           <div class="card card-primary">
             <form id="pageDelete" action="/admin/pagina/excluir/<%=pageData.id%>" method="POST">
               <div class="card-body">
-                <%- include('page-form.ejs', { pageData, image: 'show', readOnly: true }) %>
+                <%- include('page-form.ejs', { pageData, readOnly: true }) %>
               </div>
               <div class="card-footer">
                 <button type="submit" class="btn btn-danger">EXCLUIR</button>

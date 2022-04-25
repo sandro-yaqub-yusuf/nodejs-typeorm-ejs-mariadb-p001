@@ -34,9 +34,9 @@
         <% } %>
         <div class="col-md-12">
           <div class="card card-primary">
-            <form id="pageEdit" action="/admin/pagina/editar/<%=pageData.id%>" method="POST" enctype="multipart/form-data">
+            <form id="pageEdit" action="/admin/pagina/editar/<%=pageData.id%>" method="POST">
               <div class="card-body">
-                <%- include('page-form.ejs', { pageData, image: 'edit', readOnly: false }) %>
+                <%- include('page-form.ejs', { pageData, readOnly: false }) %>
               </div>
               <div class="card-footer">
                 <button type="submit" class="btn btn-primary">SALVAR</button>

@@ -5,7 +5,7 @@ export default class Page {
     @typeorm.PrimaryGeneratedColumn({ type: 'int', name: 'id', unsigned: true })
     id: number;
 
-    @typeorm.Column('varchar', { name: 'name', length: 50 })
+    @typeorm.Column('varchar', { name: 'name', length: 25 })
     name: string;
 
     @typeorm.Column('text', { name: 'content', nullable: true })
