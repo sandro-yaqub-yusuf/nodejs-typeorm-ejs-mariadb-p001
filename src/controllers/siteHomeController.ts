@@ -18,9 +18,9 @@ class SiteHomeController {
                 res.render('site/home', { menuList, pageList, sessionUser: req.session });
             }).catch(() => {
                 req.session.parameters = [
-                    {attribute: 'SITE-TITLE', value: 'SITE - 500 ERROR'},
-                    {attribute: 'SITE-DESCRIPTION', value: 'SITE - 500 ERROR'},
-                    {attribute: 'SITE-LOGO-NAME-HTML5', value: 'SITE - 500 ERROR'}
+                    { attribute: 'SITE-TITLE', value: 'SITE - 500 ERROR' },
+                    { attribute: 'SITE-DESCRIPTION', value: 'SITE - 500 ERROR' },
+                    { attribute: 'SITE-LOGO-NAME-HTML5', value: 'SITE - 500 ERROR' }
                 ];
 
                 res.render('site/500', { menuList: [], pageList: [], sessionUser: req.session });

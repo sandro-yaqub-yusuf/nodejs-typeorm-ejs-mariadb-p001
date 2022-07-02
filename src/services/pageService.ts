@@ -22,7 +22,7 @@ class PageService {
     public async store(pageData: IPageInstance): Promise<Page> {
         const page = PageRepository.create(pageData);
 
-        page.content = (pageData.content ? pageData.content : null);
+        page.content = (pageData.content ? pageData.content : '');
         page.openAnotherTab = (pageData.openAnotherTab ? 1 : 0);
         page.siteEnable = (pageData.siteEnable ? 1 : 0);
 
@@ -39,7 +39,7 @@ class PageService {
         if (!page) throw new Error('Página não encontrada !');
         
         page.name = pageData.name;
-        page.content = (pageData.content ? pageData.content : null);
+        page.content = (pageData.content ? pageData.content : '');
         page.orderShow = pageData.orderShow;
         page.openAnotherTab = (pageData.openAnotherTab ? 1 : 0);
         page.siteEnable = (pageData.siteEnable ? 1 : 0);

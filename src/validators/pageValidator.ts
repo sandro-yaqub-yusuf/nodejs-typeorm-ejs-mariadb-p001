@@ -5,8 +5,8 @@ export const store = expressValidator.checkSchema({
         trim: true,
         escape: true,
         isLength:{ 
-            options: { min: 2, max: 25 },
-            errorMessage: 'O nome da Página precisa ter pelo menos 2 caracteres e no máximo 25 caracteres !'
+            options: { min: 2, max: 30 },
+            errorMessage: 'O nome da Página precisa ter pelo menos 2 caracteres e no máximo 30 caracteres !'
         }
     },
     orderShow: {
@@ -20,8 +20,8 @@ export const update = expressValidator.checkSchema({
         trim: true,
         escape: true,
         isLength:{ 
-            options: { min: 2, max: 25 },
-            errorMessage: 'O nome da Página precisa ter pelo menos 2 caracteres e no máximo 25 caracteres !'
+            options: { min: 2, max: 30 },
+            errorMessage: 'O nome da Página precisa ter pelo menos 2 caracteres e no máximo 30 caracteres !'
         }
     },
     orderShow: {

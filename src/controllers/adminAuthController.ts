@@ -14,9 +14,9 @@ class AdminAuthController {
                 res.render('admin/auth/login', { sessionUser: req.session, sessionFlash: null });
             }).catch(() => {
                 req.session.parameters = [
-                    {attribute: 'SITE-TITLE', value: 'SITE - 500 ERROR'},
-                    {attribute: 'SITE-DESCRIPTION', value: 'SITE - 500 ERROR'},
-                    {attribute: 'SITE-LOGO-NAME-HTML5', value: 'SITE - 500 ERROR'}
+                    { attribute: 'SITE-TITLE', value: 'SITE - 500 ERROR' },
+                    { attribute: 'SITE-DESCRIPTION', value: 'SITE - 500 ERROR' },
+                    { attribute: 'SITE-LOGO-NAME-HTML5', value: 'SITE - 500 ERROR' }
                 ];
 
                 res.render('site/500', { sessionUser: req.session });

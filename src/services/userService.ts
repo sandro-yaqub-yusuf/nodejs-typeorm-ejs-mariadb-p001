@@ -35,6 +35,8 @@ class UserService {
 
         const user = UserRepository.create(userData);
 
+        user.imageUrl = (userData.imageUrl ? userData.imageUrl : '');
+
         const userStore = await UserRepository.saveWT(user);
 
         if (!userStore) throw new Error('Não foi possível cadastrar o Usuário !');
@@ -66,7 +68,7 @@ class UserService {
         user.name = userData.name;
         user.email = userData.email;
         user.terms = userData.terms;
-        user.imageUrl = (userData.imageUrl ? userData.imageUrl : user.imageUrl);
+        user.imageUrl = (userData.imageUrl ? userData.imageUrl : '');
         
         const userUpdate = await UserRepository.saveWT(user);
 

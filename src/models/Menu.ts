@@ -5,7 +5,7 @@ export default class Menu {
     @typeorm.PrimaryGeneratedColumn({ type: 'int', name: 'id', unsigned: true })
     id: number;
 
-    @typeorm.Column('varchar', { name: 'name', length: 25 })
+    @typeorm.Column('varchar', { name: 'name', length: 30 })
     name: string;
 
     @typeorm.Column('varchar', { name: 'url', length: 255 })

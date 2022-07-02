@@ -1,7 +1,7 @@
 # NodeJS com TYPESCRIPT, Template Engine EJS e Banco de Dados MARIADB - Projeto 001
 
-* Versão do NODEJS utilizado: 16.x
-* Linguagem principal utilizada: Typescript
+* Versão do NODEJS utilizado: 16.15.1 LTS
+* Linguagem principal utilizada: Typescript 4.7.x
 * Outras linguagens utilizadas: HTML5, CSS3 e Javascript
 * Frameworks utilizadas: TYPESCRIPT, NODEMON, TS-NODE, TS-NODE-DEV, EXPRESS, EXPRESS-SESSION, EXPRESS-VALIDATOR, EJS, TYPEORM, REFLECT-METADATA, MYSQL2, MULTER, SHARP, BCRYPTJS, CORS, JSONWEBTOKEN, NODEMAILER, COPYFILES, PATH e DOTENV
 * Banco de Dados utilizado: MariaDB 10.5.x
@@ -12,18 +12,21 @@
 
 ## Descrição:
 
-Projeto em NODEJS (site em HTML5, CSS3, Javascript e Typescript) com BD MariaDB para gerenciar usuários e páginas web com FRONT-END (Site) e BACK-END (Painel de Controle Administrativo).
+Projeto em NODEJS (site em HTML5, CSS3, Javascript e Typescript) com BD MariaDB para gerenciar Páginas Web e Usuários com FRONT-END (Site) e BACK-END (Painel de Controle Administrativo).
 
 ----
 
 ## Instalação Global dos pacotes para o NODEJS:
 
-1. Instalar o NODEJS (última versão LTS) do site oficial (https://nodejs.org)
-2. Instalar a linguagem TYPESCRIP, utilize o seguinte comando => npm install -g typescript
-3. Instalar a biblioteca NODEMON, utilize o seguinte comando => npm install -g nodemon
-4. Instalar a biblioteca TS-NODE, utilize o seguinte comando => npm install -g ts-node
-5. Instalar a biblioteca TYPEORM, utilize o seguinte comando => npm install -g typeorm
-6. Instalar a biblioteca NCU, utilize o seguinte comando => npm install -g npm-check-updates
+1. Instalar o NVM de acordo com o seu SO do git oficial (https://github.com/nvm-sh/nvm) e depois de instalado, saia do terminal e entre novamente e verifique se o mesmo foi instalado com o seguinte comando => nvm -v
+2. Instalar o NODEJS versão 16.15.1 LTS do site oficial (https://nodejs.org) com o seguinte comando => nvm install 16.15.1
+3. Ativar o NODEJS com o seguinte comando => nvm use 16.15.1
+4. Atualizar o NPM para a versão mais recente com o seguinte comando => npm install -g npm@latest
+5. Instalar o NCU com o seguinte comando => npm install -g npm-check-updates
+6. Instalar a linguagem TYPESCRIP, utilize o seguinte comando => npm install typescript
+7. Instalar a biblioteca TS-NODE, utilize o seguinte comando => npm install ts-node
+8. Instalar a biblioteca TYPEORM, utilize o seguinte comando => npm install typeorm
+9. Instalar a biblioteca NODEMON, utilize o seguinte comando => npm install -D nodemon
 
 ----
 
@@ -61,7 +64,6 @@ Projeto em NODEJS (site em HTML5, CSS3, Javascript e Typescript) com BD MariaDB 
 24. Instalar a biblioteca PATH no NODEJS => npm install path
 25. Instalar a biblioteca DOTENV para NODEJS => npm install copyfiles
 26. Instalar a biblioteca DOTENV para NODEJS => npm install dotenv
-27. Instalar a biblioteca TS-NODE-DEV para NODEJS => npm install ts-node
 
 ----
 

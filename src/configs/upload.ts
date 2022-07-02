@@ -20,7 +20,7 @@ export default {
         const fileSize = request.headers['content-length'];
 
         if (fileSize) {
-            if (parseInt(fileSize) > 10000000) {
+            if (parseInt(fileSize) > 15000000) {
                 callback(null, false);
             } else {
                 callback(null, allowed.includes(file.mimetype));

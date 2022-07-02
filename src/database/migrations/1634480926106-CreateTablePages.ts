@@ -5,7 +5,7 @@ export class CreateTablePages1634480926106 implements typeorm.MigrationInterface
         await queryRunner.query(`
             CREATE TABLE IF NOT EXISTS pages (
                 id int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-                name varchar(25) NOT NULL COLLATE 'utf8mb4_general_ci',
+                name varchar(30) NOT NULL COLLATE 'utf8mb4_general_ci',
                 content text NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
                 order_show tinyint(2) NOT NULL DEFAULT 1,
                 open_another_tab tinyint(1) NOT NULL DEFAULT 0,
